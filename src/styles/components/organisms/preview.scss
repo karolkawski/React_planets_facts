@@ -1,0 +1,14 @@
+.Preview {
+    height: 304px;
+    display: flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    figure {
+
+        img {
+            object-fit: cover;
+            height: 173px;
+        }
+    }
+}

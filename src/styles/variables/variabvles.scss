@@ -1,0 +1,54 @@
+//colors
+
+$--white: #ffffff;
+$--dark-blue: #070724;
+$--dark-gray: #38384F;
+$--gray: #838391;
+$--light-blue: #419EBB;
+$--yellow: #EDA249;
+$--purple: #6f2ed6;
+$--dark-orange: #D14C32;
+$--red: #D83A34;
+$--orange: #CD5120;
+$--green: #1ec2a4;
+$--blue: #2d68f0;
+
+
+@mixin h1 {
+    font-family: Antonio;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 80px;
+    line-height: 104px;
+    text-transform: uppercase;
+}
+
+@mixin h2 {
+    font-family: Antonio;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 52px;
+    letter-spacing: -1.5px;
+    text-transform: uppercase;
+}
+
+@mixin h3 {
+    font-family: Spartan;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 25px;
+    letter-spacing: 2.57143px;
+    text-transform: uppercase;
+}
+
+@mixin h4 {
+    font-family: Spartan;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 11px;
+    line-height: 25px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}

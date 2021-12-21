@@ -1,0 +1,30 @@
+.S {
+    font-family: Spartan;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 8px;
+    line-height: 16px;
+    /* identical to box height, or 200% */
+    
+    letter-spacing: 0.727273px;
+    text-transform: uppercase;
+    
+    color: #FFFFFF;
+    
+    mix-blend-mode: normal;
+    opacity: 0.5;
+}
+
+.M {
+    font-family: Antonio;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 26px;
+    /* identical to box height */
+    
+    text-align: right;
+    letter-spacing: -0.75px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}

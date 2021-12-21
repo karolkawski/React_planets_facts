@@ -1,0 +1,44 @@
+@import '../variables/variabvles.scss';
+
+.Navigation {
+    display: flex;
+    position: fixed;
+    top: 0;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 48px);
+    height: 68px;
+    padding: 16px 24px;
+    &__Title {
+        font-family: Antonio;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 28px;
+        line-height: 36px;
+        letter-spacing: -1.05px;
+        text-transform: uppercase;
+        
+        color: #FFFFFF;
+        
+    }
+
+    &__Menu {
+        display: none;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    &__Item {
+        @include h4;
+    }
+
+    &__Toggle {
+        padding: 0;
+    margin: 0;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+    }
+    
+}

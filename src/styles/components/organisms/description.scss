@@ -1,0 +1,51 @@
+.Description {
+    padding: 0px 24px;
+    &__Title {
+        font-family: Antonio;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 40px;
+        line-height: 52px;
+        /* identical to box height */
+        
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    &__Text {
+        font-family: Spartan;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 11px;
+        line-height: 22px;
+        /* or 200% */
+        
+        text-align: center;
+    }
+    &__Source {
+        font-family: Spartan;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 25px;
+        text-align: center;
+        /* identical to box height, or 208% */
+        a {
+            font-family: Spartan;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 12px;
+            line-height: 25px;
+            text-decoration: none;
+            /* identical to box height, or 208% */
+
+            text-decoration-line: underline;
+
+            color: #FFFFFF;
+
+            mix-blend-mode: normal;
+            opacity: 0.5;
+            cursor: pointer;
+        }
+    }
+}

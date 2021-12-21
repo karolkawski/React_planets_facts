@@ -1,0 +1,37 @@
+.Menu {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    height: 50px;
+    user-select: none;
+    
+    &__Tab {
+        font-family: Spartan;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 9px;
+        line-height: 10px;
+        /* identical to box height */
+        
+        text-align: center;
+        letter-spacing: 1.92857px;
+        text-transform: uppercase;
+        cursor: pointer;
+        border-bottom: 5px solid transparent;
+        transition: all .2s ease-in-out;
+
+
+        &--Active {
+            border-bottom: 5px solid #fff;
+            transition: all .2s ease-in-out;
+
+        }
+
+        &:hover {
+            border-bottom: 5px solid #fff;
+            transition: all .2s ease-in-out;
+        }
+
+    }
+}

@@ -1,0 +1,15 @@
+
+body {
+  margin: 0;
+  font-family: Spartan;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 25px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+}
+
+
+
