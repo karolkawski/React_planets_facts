@@ -1,6 +1,5 @@
 .App {
     background-color: #000000;
-    width: 100vw;
     color: #ffffff;
     background-image: url('../../assets/background-stars.svg');
 
@@ -10,5 +9,6 @@
 
     &__Main {
         padding-top: 100px;
+        height: calc(100vh - 20px);
     }
 }

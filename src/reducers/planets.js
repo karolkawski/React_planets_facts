@@ -1,9 +1,19 @@
-export const planets = (state = [], action) => {
-    console.log(action)
+const initialState = {
+  planets: [],
+  planetId: 0,
+  infoId: 0
+}
+
+export const planets = (state = initialState, action) => {
+  console.log(action)
+
     switch (action.type) {
       case 'FETCH_PLANET_DETAILS':
-          console.log(true)
-        return [...action.planets];
+        return {...state, planets: [...action.planets]};
+      case 'CHANGE_PLANET_ID':
+        return {...state, planetId: [...action.planetId]};
+      case 'CHANGE_INFO_ID':
+        return {...state, infoId: [...action.infoId]};
       default:
         return state;
     }
