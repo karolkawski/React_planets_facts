@@ -4,6 +4,7 @@ import data from '../../data/data.json';
 
 export function Details({planetId, infoId}) {
     const currentPlanetData = data[planetId];
+    console.log(currentPlanetData)
     const keys = Object.keys(currentPlanetData).filter((key) => {
         return ['rotation', 'revolution', 'radius', 'temperature'].includes(key)
     });

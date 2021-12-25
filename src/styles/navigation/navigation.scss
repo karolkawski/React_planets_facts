@@ -9,6 +9,24 @@
     width: calc(100% - 48px);
     height: 68px;
     padding: 16px 24px;
+
+    // mobile
+
+    &--Collapsed {
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #000;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-content: space-between;
+        flex-direction: column;
+
+        .Navigation__Menu {
+            display: flex;
+        }
+    }
     &__Title {
         font-family: Antonio;
         font-style: normal;
@@ -19,6 +37,9 @@
         text-transform: uppercase;
         
         color: #FFFFFF;
+
+        //mobile {
+            padding: 50px 0px;
         
     }
 
@@ -27,18 +48,69 @@
         list-style: none;
         padding: 0;
         margin: 0;
+
+        //mobile 
+        height: calc(100% - 100px);
+        width: 250px;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
     }
 
     &__Item {
         @include h4;
+        //mobile
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: scale(1);
+        cursor: pointer;
+        background: none;
+        color: #fff;
+        border: none;
+
+        &:hover {
+            transform: scale(1.5);
+            transition: all .2s ease-in-out
+        }
+        &--Selected {
+            transform: scale(1.5);
+            transition: all .2s ease-in-out
+        }
     }
 
     &__Toggle {
         padding: 0;
-    margin: 0;
+        margin: 50px 0;
         background: transparent;
         border: none;
         cursor: pointer;
+        width: 30px;
+        height: 30px;
+
+        &:hover {
+            transform: scale(1.5);
+            transition: all .2s ease-in-out  
+        }
     }
     
+}
+
+@media (min-width: 940px) {
+    .Navigation {
+        &__Menu {
+            display: flex;
+            flex-direction: row;
+            width: auto;
+        }
+        &__Item {
+            margin-right: 25px;
+        }
+
+        &__Toggle {
+            display: none;
+        }
+
+    }
 }
