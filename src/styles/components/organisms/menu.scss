@@ -5,8 +5,9 @@
     align-items: center;
     height: 50px;
     user-select: none;
-    border-top: 1px solid #979797;
-    border-bottom: 1px solid #979797;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding: 0px 24px;
     // height: 46px;
 
     &__Tab {
@@ -15,7 +16,8 @@
         font-weight: bold;
         font-size: 9px;
         line-height: 28px;
-        opacity: 0.8;
+        opacity: 0.5;
+        flex: 1;
         /* identical to box height */
         
         text-align: center;
@@ -51,6 +53,52 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             cursor: pointer;
+        }
+
+    }
+}
+
+@media (min-width: 768px) {
+    .Menu {
+        grid-column-start: 2;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        flex-direction: column;
+        align-items: flex-end;
+
+        height: auto;
+        border: none;
+        height: 152px;
+        margin-top: 80px;
+
+        &__Tab {
+            width: 291px;
+            border: 1px solid rgba(255,255,255,0.2);
+            &:hover {
+               
+                border-bottom: 1px solid rgba(255,255,255,0.2);
+
+                &--Active {
+                    border-bottom: 1px solid rgba(255,255,255,0.2);
+
+                }
+            }
+        }
+    }
+}
+
+
+@media (min-width: 1440px) {
+    .Menu {
+        grid-column-start: 2;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        height: 176px;
+        &__Tab {
+            width: 350px;
+            height: 48px;
         }
 
     }

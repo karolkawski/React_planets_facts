@@ -4,3 +4,71 @@
     padding: 0px 24px;
     display: block;
 }
+
+@media (min-width: 768px) {
+    .Details {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 3;
+        grid-row-end: 3;
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+
+        &__Row {
+            flex-direction: column;
+            width: 164px;
+            height: 88px;
+            .S, .M {
+                text-align: left;
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media (min-width: 1440px) {
+    .Details {
+        padding: 0;
+        margin-top: 87px;
+
+        &__Row {
+            flex-direction: column;
+            width: 255px;
+            height: 128px;
+            padding: 20px;
+            .S {
+                margin: 0;
+                font-family: Spartan;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 11px;
+                line-height: 25px;
+                
+                /* identical to box height, or 227% */
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                
+                color: #FFFFFF;
+                
+                mix-blend-mode: normal;
+                opacity: 0.5;
+            }
+            .M {
+                margin: 0;
+
+                font-family: Antonio;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 40px;
+                line-height: 52px;
+                
+                /* identical to box height */
+                letter-spacing: -1.5px;
+                text-transform: uppercase;
+                
+                color: #FFFFFF;
+            }
+        }
+    }
+}

@@ -24,3 +24,34 @@ html {
         height: calc(100vh + 210px);
     }
 }
+
+@media (min-width: 768px) {
+    .App {
+        &__Main {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            grid-column-gap: 0px;
+            grid-row-gap: 0px;
+            padding-top: 185px;
+            width: 80%;
+            margin: auto;
+        }
+    }
+}
+
+@media (min-width: 1440px) {
+    .App {
+        &__Main {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            grid-column-gap: 0px;
+            grid-row-gap: 0px;
+            width: 80%;
+            margin: auto;
+            padding-top: 68px;
+        }
+    }
+}
+
