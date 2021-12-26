@@ -5,13 +5,17 @@
     align-items: center;
     height: 50px;
     user-select: none;
-    
+    border-top: 1px solid #979797;
+    border-bottom: 1px solid #979797;
+    // height: 46px;
+
     &__Tab {
         font-family: Spartan;
         font-style: normal;
         font-weight: bold;
         font-size: 9px;
-        line-height: 10px;
+        line-height: 28px;
+        opacity: 0.8;
         /* identical to box height */
         
         text-align: center;
@@ -26,12 +30,14 @@
         &--Active {
             border-bottom: 5px solid #fff;
             transition: all .2s ease-in-out;
+            opacity: 1;
 
         }
 
         &:hover {
             border-bottom: 5px solid #fff;
             transition: all .2s ease-in-out;
+            opacity: 1;
         }
         button {
             background: none;
