@@ -1,3 +1,15 @@
+@import 'react-perfect-scrollbar/dist/css/styles.css';
+
+html {
+    overflow: hidden;
+    height: 100%;
+};
+
+#root {
+    height: 100vh;
+    position: relative;
+}
+
 .App {
     background-color: #000000;
     color: #ffffff;
@@ -9,6 +21,6 @@
 
     &__Main {
         padding-top: 100px;
-        height: calc(100vh - 20px);
+        height: calc(100vh + 210px);
     }
 }

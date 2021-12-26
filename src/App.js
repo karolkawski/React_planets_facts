@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import data from './data/data.json'
 import {Navigation} from './navigation/Navigation';
 
-
 function App() {
   const [planets, setPlanets] = useState([])
   const [planetId, setPlanetId] = useState(0);
@@ -16,18 +15,18 @@ function App() {
     planetsFetch();
   }, [])
 
-
   const planetsFetch = () => {
     window.store.dispatch({type: 'FETCH_PLANET_DETAILS', planets: data, planetId: planetId, infoId: infoId})
     setPlanets(data)
   }
+
   const onPlanetSelect = (id) => {
     setPlanetId(id);
   }
+
   const onInfoSelect = (id) => {
     setInfoId(id)
   }
-
 
   return (
     <div className="App">
