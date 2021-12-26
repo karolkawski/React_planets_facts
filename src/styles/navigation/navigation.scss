@@ -197,12 +197,18 @@
 @media (min-width: 1440px) {
     .Navigation {
         flex-direction: row;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
         &__Menu {
             border-bottom: none;
             justify-content: flex-end;
+            margin-right: 32px;
+        }
 
+        &__Title {
+            padding: 0;
+            margin: 0;
+            margin-left: 32px;
         }
     }
 }

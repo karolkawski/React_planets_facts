@@ -26,6 +26,9 @@
         cursor: pointer;
         border-bottom: 5px solid transparent;
         transition: all .2s ease-in-out;
+        display: flex;
+        justify-content: center;
+        align-content: center;
 
 
 
@@ -99,6 +102,17 @@
         &__Tab {
             width: 350px;
             height: 48px;
+
+            &:hover {
+                background: rgba(216,216, 216, 0.2);
+                button {
+                    color: #fff;
+                }
+                
+            }
+           &--Active {
+               
+           } 
         }
 
     }
