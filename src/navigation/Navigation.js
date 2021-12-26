@@ -1,22 +1,44 @@
-// import iconHamburger from './assets/icon-hamburger.png';
+import {useState} from 'react'
+import iconHamburger from '../assets/icon-hamburger.svg'
+import iconClose from '../assets/icon-close.svg'
 
-export function Navigation() {
+
+export function Navigation({planetId, onPlanetSelect}) {
+  const planets = window.store.getState().planets.planets;
+  const [isCollapsed, setCollapsed] = useState(true);
+
+  const toggleMenu = () => {
+    setCollapsed(!isCollapsed);
+    }
+
+
     return (
         <header className="App__Header">
-        <nav className='Navigation'>
+        <nav className={isCollapsed ? 'Navigation' : 'Navigation Navigation--Collapsed'}>
           <div className="Navigation__Title">THE PLANNETS</div>
           <ul className="Navigation__Menu">
-            <li className="Navigation__Item">Mercury</li>
-            <li className="Navigation__Item">Venus</li>
-            <li className="Navigation__Item">Earth</li>
-            <li className="Navigation__Item">Mars</li>
-            <li className="Navigation__Item">Jupiter</li>
-            <li className="Navigation__Item">Saturn</li>
-            <li className="Navigation__Item">Uranus</li>
-            <li className="Navigation__Item">Neptune</li>
+            {
+              //style to li
+              Object.keys(planets).map((key) => {
+                const data = planets[key];
+                return <button className={Number.parseInt(key) === planetId ? "Navigation__Item Navigation__Item--Selected" : "Navigation__Item"} onClick={e => {
+                  window.store.dispatch({type: 'CHANGE_PLANET_ID', planetId: Number.parseInt(key)})
+                  onPlanetSelect(Number.parseInt(key));
+                  if (!isCollapsed) {
+                    toggleMenu();
+
+                  }
+                }}>{data.name}</button>
+              })
+            }
           </ul>
           
-          <button className="Navigation__Toggle"><img src="/assets/icon-hamburger.png"/></button>
+          <button className="Navigation__Toggle" onClick={toggleMenu}>
+            {
+              isCollapsed ? <img src={iconHamburger} alt=""/> : <img src={iconClose} alt=""/>
+
+            }
+          </button>
         </nav>
       </header>
     )

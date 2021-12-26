@@ -8,6 +8,7 @@ import {Navigation} from './navigation/Navigation';
 
 
 function App() {
+  const [planets, setPlanets] = useState([])
   const [planetId, setPlanetId] = useState(0);
   const [infoId, setInfoId] =  useState(0);
 
@@ -15,15 +16,24 @@ function App() {
     planetsFetch();
   }, [])
 
+
   const planetsFetch = () => {
     window.store.dispatch({type: 'FETCH_PLANET_DETAILS', planets: data, planetId: planetId, infoId: infoId})
+    setPlanets(data)
   }
+  const onPlanetSelect = (id) => {
+    setPlanetId(id);
+  }
+  const onInfoSelect = (id) => {
+    setInfoId(id)
+  }
+
 
   return (
     <div className="App">
-      <Navigation planet={planetId}/>
+      <Navigation planetId={planetId} onPlanetSelect={onPlanetSelect}/>
       <main className="App__Main">
-          <Index planetId={planetId} infoId={infoId}/>
+          <Index planetId={planetId} infoId={infoId} onInfoSelect={onInfoSelect}/>
       </main>
     </div>
   );
@@ -33,7 +43,7 @@ function App() {
 
 const mapStateToProps = (state) => {
   return {
-    planets: state.planets, // (1)
+    planets: state.planets,
     planetId: state.planetId,
     infoId: state.infoId
   };

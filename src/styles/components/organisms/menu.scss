@@ -22,6 +22,7 @@
         transition: all .2s ease-in-out;
 
 
+
         &--Active {
             border-bottom: 5px solid #fff;
             transition: all .2s ease-in-out;
@@ -31,6 +32,19 @@
         &:hover {
             border-bottom: 5px solid #fff;
             transition: all .2s ease-in-out;
+        }
+        button {
+            background: none;
+            color: #fff;
+            border: none;
+            font-family: Spartan;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 11px;
+            line-height: 25px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
         }
 
     }

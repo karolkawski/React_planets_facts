@@ -1,9 +1,7 @@
 
 import {MenuItem} from '../molecues/MenuItem';
 
-export function Menu(props) {
-    const {collection, planetId, infoId} = props;
-    console.log(planetId, infoId)
+export function Menu({collection, planetId, infoId, onInfoSelect}) {
         return (
             <div className="Menu">
                 {
@@ -12,7 +10,8 @@ export function Menu(props) {
                     return <MenuItem key={data.id} 
                                     name={key} 
                                     id={data.id}
-                                    selected={infoId}/>
+                                    selected={infoId}
+                                    onInfoSelect={onInfoSelect}/>
 
                     })
                 }

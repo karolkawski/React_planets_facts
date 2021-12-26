@@ -10,7 +10,7 @@ export function Preview({planetId, infoId}) {
             url = planetImages.planet;
             break;
         case 1:
-            url = planetImages.interval;
+            url = planetImages.internal;
             break;
         case 2:
             url = planetImages.geology;
