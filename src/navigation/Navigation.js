@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import iconHamburger from '../assets/icon-hamburger.svg'
 import iconClose from '../assets/icon-close.svg'
+import { v4 as uuidv4 } from 'uuid';
 
 
 export function Navigation({planetId, onPlanetSelect}) {
@@ -21,7 +22,7 @@ export function Navigation({planetId, onPlanetSelect}) {
               //style to li
               Object.keys(planets).map((key) => {
                 const data = planets[key];
-                return <button className={Number.parseInt(key) === planetId ? "Navigation__Item Navigation__Item--Selected" : "Navigation__Item"} onClick={e => {
+                return <button key={uuidv4()} className={Number.parseInt(key) === planetId ? "Navigation__Item Navigation__Item--Selected" : "Navigation__Item"} onClick={e => {
                   window.store.dispatch({type: 'CHANGE_PLANET_ID', planetId: Number.parseInt(key)})
                   onPlanetSelect(Number.parseInt(key));
                   if (!isCollapsed) {
