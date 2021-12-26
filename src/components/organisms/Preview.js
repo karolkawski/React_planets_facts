@@ -1,11 +1,11 @@
 import data from '../../data/data.json'
 
-export function Preview({planet, info}) {
+export function Preview({planetId, infoId}) {
     let url = '';
 
-    const planetImages = data[planet].images;
+    const planetImages = data[planetId].images;
 
-    switch (info) {
+    switch (infoId) {
         case 0:
             url = planetImages.planet;
             break;

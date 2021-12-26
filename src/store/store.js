@@ -1,4 +1,10 @@
 import { createStore } from 'redux';
 import reducers from '../reducers/index';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-export const store = createStore(reducers);
+const store = createStore(
+        reducers,
+        composeWithDevTools()
+    );
+window.store = store;
+export default store;

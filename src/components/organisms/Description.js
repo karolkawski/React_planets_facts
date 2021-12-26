@@ -1,8 +1,8 @@
 import {Label} from '../atoms/Label';
 import data from '../../data/data.json';
 
-export function Description({planet, info}) {
-        const currentPlanetData = data[planet];
+export function Description({planetId, infoId}) {
+        const currentPlanetData = data[planetId];
 
         return (
             <div className="Description">
