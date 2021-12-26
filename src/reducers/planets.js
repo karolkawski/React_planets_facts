@@ -12,7 +12,6 @@ export const planets = (state = initialState, action) => {
       case 'CHANGE_PLANET_ID':
         return {...state, planetId: action.planetId};
       case 'CHANGE_INFO_ID':
-        console.log(action)
         return {...state, infoId: action.infoId};
       default:
         return state;

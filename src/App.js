@@ -42,9 +42,8 @@ function App() {
 
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
-    planets: state.planets, // (1)
+    planets: state.planets,
     planetId: state.planetId,
     infoId: state.infoId
   };

@@ -2,8 +2,7 @@ import {Label} from '../atoms/Label';
 import data from '../../data/data.json';
 
 export function Description({planetId, infoId}) {
-        const currentPlanetData = data[planetId];
-console.log(currentPlanetData)
+    const currentPlanetData = data[planetId];
     let info = '';
 
     switch (infoId) {

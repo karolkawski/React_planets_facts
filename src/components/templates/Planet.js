@@ -5,7 +5,6 @@ import {Details} from '../organisms/Details';
 
 import data from '../../data/data.json'
 export function Planet({planetId, infoId, onInfoSelect}) {
-    console.log(planetId, infoId)
     const collection = {
         'OVERVIEW': {
             id: 0,
