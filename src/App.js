@@ -1,6 +1,8 @@
 import './styles/main.scss';
 import {useState} from 'react'
-import  {Index} from './pages/index';
+// import  {Index} from './pages/index';
+import  {Index} from './pages/3d';
+
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import data from './data/data.json'
@@ -32,7 +34,8 @@ function App() {
     <div className="App">
       <Navigation planetId={planetId} onPlanetSelect={onPlanetSelect}/>
       <main className="App__Main">
-          <Index planetId={planetId} infoId={infoId} onInfoSelect={onInfoSelect}/>
+          <Index/>
+          {/* <Index planetId={planetId} infoId={infoId} onInfoSelect={onInfoSelect}/> */}
       </main>
     </div>
   );

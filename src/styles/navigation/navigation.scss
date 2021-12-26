@@ -78,6 +78,9 @@
             transform: scale(1.5);
             transition: all .2s ease-in-out
         }
+        &--Yellow {
+            color: yellow;
+        }
     }
 
     &__Toggle {

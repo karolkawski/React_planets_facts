@@ -18,6 +18,7 @@ export function Navigation({planetId, onPlanetSelect}) {
         <nav className={isCollapsed ? 'Navigation' : 'Navigation Navigation--Collapsed'}>
           <div className="Navigation__Title">THE PLANNETS</div>
           <ul className="Navigation__Menu">
+          <button className= "Navigation__Item Navigation__Item--Yellow">Uklad Sloneczny 3D</button>
             {
               //style to li
               Object.keys(planets).map((key) => {
