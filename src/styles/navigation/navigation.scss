@@ -16,17 +16,81 @@
         padding: 0;
         width: 100vw;
         height: 100vh;
-        background: #000;
+        background: #070724;
         z-index: 1;
         display: flex;
         justify-content: center;
         align-content: space-between;
         flex-direction: column;
+        z-index: 10;
 
         .Navigation__Menu {
             display: flex;
+            width: 100%;
+
+        }
+
+        .Navigation__Title {
+            text-align: left;
+            width: 100%;
+            padding: 15px 24px;
+            width: calc(100vw - 50px);
+        }
+
+        .Navigation__Item {
+            height: 65px;
+            padding: 0px 24px;
+
+            &:hover,
+            &--Selected {
+                transform: none !important;
+
+                .Navigation__Chevron {
+                    opacity: 1;
+                }
+            }
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+            &:last-child {
+                border-bottom: none;
+                ;
+            }
+
+        }
+
+        .Navigation__Dot {
+            width: 20px;
+            height: 20px;
+            background: #ccc;
+            border-radius: 25px;
+            margin-right: 25px;
+        }
+
+        .Navigation__Name {
+            width: calc(100% - 65px);
+            text-align: left;
+
+        }
+
+        .Navigation__Chevron {
+            background-image: url('../../assets/icon-chevron.svg');
+            width: 20px;
+            height: 20px;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.5;
+
+
+        }
+
+        .Navigation__Toggle {
+            position: absolute;
+            top: 0;
+            right: 24px;
         }
     }
+
     &__Title {
         white-space: nowrap;
         font-family: Antonio;
@@ -36,12 +100,12 @@
         line-height: 36px;
         letter-spacing: -1.05px;
         text-transform: uppercase;
-        
+
         color: #FFFFFF;
 
         //mobile {
-            padding: 50px 0px;
-        
+        padding: 50px 0px;
+
     }
 
     &__Menu {
@@ -63,7 +127,7 @@
         //mobile
         height: 50px;
         display: flex;
-        justify-content: center;
+        // justify-content: center;
         align-items: center;
         transform: scale(1);
         cursor: pointer;
@@ -76,6 +140,7 @@
             transition: all .2s ease-in-out;
             color: #fff;
         }
+
         &--Selected {
             transform: scale(1.5);
             transition: all .2s ease-in-out;
@@ -95,10 +160,10 @@
 
         &:hover {
             transform: scale(1.5);
-            transition: all .2s ease-in-out  
+            transition: all .2s ease-in-out
         }
     }
-    
+
 }
 
 @media (min-width: 768px) {
@@ -111,14 +176,15 @@
             display: flex;
             flex-direction: row;
             width: auto;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             height: 50px;
             width: 100%;
             justify-content: center;
         }
+
         &__Item {
             margin-right: 25px;
-            color: rgba(255,255,255,0.75);
+            color: rgba(255, 255, 255, 0.75);
         }
 
         &__Toggle {
@@ -132,6 +198,7 @@
     .Navigation {
         flex-direction: row;
         border-bottom: 1px solid #ccc;
+
         &__Menu {
             border-bottom: none;
             justify-content: flex-end;

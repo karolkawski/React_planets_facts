@@ -19,17 +19,21 @@ export function Navigation({planetId, onPlanetSelect}) {
           <div className="Navigation__Title">THE PLANNETS</div>
           <ul className="Navigation__Menu">
             {
-              //style to li
+              //TODO separate 
               Object.keys(planets).map((key) => {
                 const data = planets[key];
-                return <button key={uuidv4()} className={Number.parseInt(key) === planetId ? "Navigation__Item Navigation__Item--Selected" : "Navigation__Item"} onClick={e => {
+                return <li key={uuidv4()} className={Number.parseInt(key) === planetId ? "Navigation__Item Navigation__Item--Selected" : "Navigation__Item"} onClick={e => {
                   window.store.dispatch({type: 'CHANGE_PLANET_ID', planetId: Number.parseInt(key)})
                   onPlanetSelect(Number.parseInt(key));
                   if (!isCollapsed) {
                     toggleMenu();
 
                   }
-                }}>{data.name}</button>
+                }}>
+                    <div className="Navigation__Dot"></div>
+                    <div className="Navigation__Name">{data.name}</div>
+                    <div className="Navigation__Chevron"></div>
+                  </li>
               })
             }
           </ul>
