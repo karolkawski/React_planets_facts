@@ -9,9 +9,9 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 
 ReactDOM.render(
   <Provider store={store}>
-    <PerfectScrollbar>
+    {/* <PerfectScrollbar> */}
        <App />
-    </PerfectScrollbar>
+    {/* </PerfectScrollbar> */}
   </Provider>,
   document.getElementById('root')
 );

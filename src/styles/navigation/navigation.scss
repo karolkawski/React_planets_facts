@@ -71,11 +71,11 @@
         border: none;
 
         &:hover {
-            transform: scale(1.5);
+            transform: scale(1.2);
             transition: all .2s ease-in-out
         }
         &--Selected {
-            transform: scale(1.5);
+            transform: scale(1.2);
             transition: all .2s ease-in-out
         }
         &--Yellow {
