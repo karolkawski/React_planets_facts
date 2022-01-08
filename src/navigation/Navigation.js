@@ -2,6 +2,7 @@ import {useState} from 'react'
 import iconHamburger from '../assets/icon-hamburger.svg'
 import iconClose from '../assets/icon-close.svg'
 import { v4 as uuidv4 } from 'uuid';
+import { colors } from '../data/colors';
 
 
 export function Navigation({planetId, onPlanetSelect}) {
@@ -30,7 +31,7 @@ export function Navigation({planetId, onPlanetSelect}) {
 
                   }
                 }}>
-                    <div className="Navigation__Dot"></div>
+                    <div className={"Navigation__Dot Navigation__Dot--" + data.name.toLowerCase() }></div>
                     <div className="Navigation__Name">{data.name}</div>
                     <div className="Navigation__Chevron"></div>
                   </li>

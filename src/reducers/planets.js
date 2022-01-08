@@ -1,7 +1,12 @@
+import {colors} from '../data/colors';
+
 const initialState = {
   planets: [],
   planetId: 0,
-  infoId: 0
+  infoId: 0,
+  color: {
+    primary: colors['Mercury']
+  }
 }
 
 export const planets = (state = initialState, action) => {
