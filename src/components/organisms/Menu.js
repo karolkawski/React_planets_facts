@@ -11,7 +11,8 @@ export function Menu({collection, planetId, infoId, onInfoSelect}) {
                                     name={key} 
                                     id={data.id}
                                     selected={infoId}
-                                    onInfoSelect={onInfoSelect}/>
+                                    onInfoSelect={onInfoSelect}
+                                    planetId={planetId}/>
 
                     })
                 }
