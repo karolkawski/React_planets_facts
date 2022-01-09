@@ -4,6 +4,7 @@ import {Description} from '../organisms/Description';
 import {Details} from '../organisms/Details';
 
 import data from '../../data/data.json'
+import { useEffect } from 'react';
 export function Planet({planetId, infoId, onInfoSelect}) {
     const collection = {
         'OVERVIEW': {
@@ -19,6 +20,11 @@ export function Planet({planetId, infoId, onInfoSelect}) {
             name: 'surface'
         }
     }
+
+    useEffect(() => {
+      document.querySelector('.scrollbar-container').classList.add('ps', 'ps--active-y');
+    }, [])
+
     return (
         <>
             <Menu collection={collection} planetId={planetId} infoId={infoId} onInfoSelect={onInfoSelect}/>
