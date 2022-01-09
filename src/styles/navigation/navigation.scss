@@ -2,7 +2,7 @@
 
 .Navigation {
     display: flex;
-    position: fixed;
+    position: absolute;
     top: 0;
     justify-content: space-between;
     align-items: center;
@@ -171,18 +171,23 @@
         background: none;
         color: #fff;
         border: none;
+        text-decoration: none;
 
         &:hover {
-            transform: scale(1.5);
-            transition: all .2s ease-in-out;
-            color: #fff;
+            transform: scale(1.2);
+            transition: all .2s ease-in-out
         }
 
         &--Selected {
-            transform: scale(1.5);
+            transform: scale(1.2);
             transition: all .2s ease-in-out;
-            color: #fff !important;
 
+            .Navigation__Name {
+                color: #fff;
+            }
+        }
+        &--Yellow {
+            color: yellow;
         }
     }
 
