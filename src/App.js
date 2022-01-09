@@ -47,7 +47,8 @@ const mapStateToProps = (state) => {
   return {
     planets: state.planets,
     planetId: state.planetId,
-    infoId: state.infoId
+    infoId: state.infoId,
+    colors: state.colors
   };
 };
 
