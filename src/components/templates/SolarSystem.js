@@ -12,7 +12,6 @@ window.scene = scene;
 export function SolarSystem({planetId, infoId, onInfoSelect}) {
     const mount = useRef(null)
     const controls = useRef(null)
-
     
     useEffect(() => {
 
@@ -21,26 +20,27 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
       let height = mount.current.clientHeight
       let frameId
   
-      const camera = new THREE.PerspectiveCamera(75, width / height, 19, 1000);
+      const camera = new THREE.PerspectiveCamera(100, width / height, 19, 1000);
       window.camera = camera;
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
       renderer.setClearColor( 0xffffff, 0 ); // second param is opacity, 0 => transparent
       const controls = new OrbitControls( camera, renderer.domElement );
       controls.listenToKeyEvents( window );
       
-      controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
-      controls.dampingFactor = 0.05;
+      // controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+      // controls.dampingFactor = 0.05;
 
       controls.screenSpacePanning = false;
 
       controls.minDistance = 100;
-      controls.maxDistance = 600;
+      controls.maxDistance = 1000;
 
-      // controls.maxPolarAngle = Math.PI / 2;
-      camera.position.z = 600;
+      controls.maxPolarAngle = Math.PI;
+      camera.position.z = 1000;
 
-      let geometry = new THREE.SphereGeometry( 10, 32, 16 );
-      let material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+      let geometry = new THREE.SphereGeometry( 20, 32, 16 );
+      let texture = new THREE.TextureLoader().load('./assets/2k_sun.jpg')
+      let material = new THREE.MeshBasicMaterial( { map: texture } );
       const sun = new THREE.Mesh( geometry, material );
       sun.position.set(0,0,0)
       scene.add( sun );
@@ -58,27 +58,80 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
       for(let i = 0; i <= 7; i++) {
 
           // if (i >= 1) {
-            geometry = new THREE.TorusGeometry( (i+1) * 50, 1, 16, 100 );
+            geometry = new THREE.TorusGeometry( (i+1) * 100, 1, 16, 100 );
             material = new THREE.MeshBasicMaterial( { color: 0xffffff, opacity: 0.1, transparent: true } );
             const torus = new THREE.Mesh( geometry, material );
             orbitsGroup.add( torus );
 
             //TODO spin of planet
-            // geometry = new THREE.TorusGeometry( (i+1) * 50, 1, 16, 100, Math.PI*2 );
+            // geometry = new THREE.TorusGeometry( (i+1) * 100, 1, 16, 100, Math.PI*2 );
             // material = new THREE.MeshBasicMaterial( { color: 0xe40000 } );
             // const spin = new THREE.Mesh( geometry, material );
             // spinsGroup.add( spin );
           // }
 
+          const planetsTextures = {
+            mercury: {
+              id: 0,
+              file: '2k_mercury.jpeg',
+              path: './assets/2k_mercury.jpg',
+              size: 0.38
+            },
+            venus: {
+              id: 1,
+              file: '2k_venus_surface.jpeg',
+              path: './assets/2k_venus_surface.jpg',
+              size: 0.95
+            },
+            earth: {
+              id: 2,
+              file: '2k_earth_daymap.jpeg',
+              path: './assets/2k_earth_daymap.jpg',
+              size: 1
+            },
+            mars: {
+              id: 3,
+              file: '2k_mars.jpeg',
+              path: './assets/2k_mars.jpg',
+              size: 0.54
+            },
+            jupiter: {
+              id: 4,
+              file: '2k_jupiters.jpeg',
+              path: './assets/2k_jupiter.jpg',
+              size: 11.26
+            },
+            saturn: {
+              id: 5,
+              file: '2k_saturn.jpeg',
+              path: './assets/2k_saturn.jpg',
+              size: 9.45
+            },
+            uranus: {
+              id: 6,
+              file: '2k_uranus.jpeg',
+              path: './assets/2k_uranus.jeg',
+              size: 4.47
+            },
+            neptune: {
+              id: 7,
+              file: '2k_neptune.jpeg',
+              path: './assets/2k_neptune.jpg',
+              size: 3.90
+            }
+          }
+
           const planetGroup = new THREE.Group();
           planetGroup.name = `'planet${i}`
           planetGroup.position.set(0, 0, 0);
-          geometry = new THREE.SphereGeometry( 5, 32, 16 );
-          material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+          geometry = new THREE.SphereGeometry( 5 * planetsTextures[Object.keys(planetsTextures)[i]].size, 32, 16 );
+          texture = new THREE.TextureLoader().load(planetsTextures[Object.keys(planetsTextures)[i]].path)
+
+          material = new THREE.MeshBasicMaterial( { map: texture } );
           const planet = new THREE.Mesh( geometry, material );
           planetGroup.add(planet);
 
-          planet.position.set((i+1) * 50,0,0)
+          planet.position.set((i+1) * 100,0,0)
           planetsGroup.add( planetGroup );
       }
 
