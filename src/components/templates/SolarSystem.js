@@ -110,7 +110,7 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
             uranus: {
               id: 6,
               file: '2k_uranus.jpeg',
-              path: './assets/2k_uranus.jeg',
+              path: './assets/2k_uranus.jpg',
               size: 4.47
             },
             neptune: {
@@ -131,7 +131,9 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
           const planet = new THREE.Mesh( geometry, material );
           planetGroup.add(planet);
 
-          planet.position.set((i+1) * 100,0,0)
+          planet.position.set((i+1) * 100,0,0);
+      planet.rotation.set(Math.PI/2, 0, 0)
+
           planetsGroup.add( planetGroup );
       }
 
@@ -202,10 +204,12 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
               switch (rotation.unit) {
                 case 'Days':
                   planetGroup.rotation.z += earthYear * rotation.value * scale;
+                  planetGroup.children[0].rotation.y +=  earthYear * rotation.value * scale ;
 
                   break;
                 case 'Hours':
                   planetGroup.rotation.z += earthYear * rotation.value * 24 * scale;
+                  planetGroup.children[0].rotation.y +=  earthYear * rotation.value * 24* scale ;
                   
                   break;
                 default: break;
