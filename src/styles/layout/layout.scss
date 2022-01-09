@@ -1,14 +1,51 @@
-.App {
-    background-color: #000000;
+@import 'react-perfect-scrollbar/dist/css/styles.css';
+
+html {
+    overflow: hidden;
+    background-color: #070724;
     color: #ffffff;
     background-image: url('../../assets/background-stars.svg');
+};
 
-    &__Header {
+#root {
+    position: relative;
+}
 
-    }
-
+.App {
+    height: 100vh;
     &__Main {
-        padding-top: 100px;
-        height: calc(100vh - 20px);
+        padding-top: 68px;
+        height: 100vh;
+        max-width: 1920px;
+    }
+}
+
+@media (min-width: 768px) {
+    .App {
+        &__Main {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            grid-column-gap: 0px;
+            grid-row-gap: 0px;
+            padding-top: 160px;
+            width: 100%;
+            margin: auto;
+        }
+    }
+}
+
+@media (min-width: 1440px) {
+    .App {
+        &__Main {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            grid-column-gap: 0px;
+            grid-row-gap: 0px;
+            width: 80%;
+            margin: auto;
+            padding-top: 68px;
+        }
     }
 }

@@ -4,7 +4,7 @@ import {Description} from '../organisms/Description';
 import {Details} from '../organisms/Details';
 
 import data from '../../data/data.json'
-export function Planet({planetId, infoId}) {
+export function Planet({planetId, infoId, onInfoSelect}) {
     const collection = {
         'OVERVIEW': {
             id: 0,
@@ -21,7 +21,7 @@ export function Planet({planetId, infoId}) {
     }
     return (
         <>
-            <Menu collection={collection} planetId={planetId} infoId={infoId}/>
+            <Menu collection={collection} planetId={planetId} infoId={infoId} onInfoSelect={onInfoSelect}/>
             <Preview data={data} planetId={planetId} infoId={infoId}/>
             <Description data={data} planetId={planetId} infoId={infoId}/>
             <Details data={data} planetId={planetId} infoId={infoId}/>

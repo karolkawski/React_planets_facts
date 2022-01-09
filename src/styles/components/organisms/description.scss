@@ -29,6 +29,7 @@
         font-size: 12px;
         line-height: 25px;
         text-align: center;
+        margin-top: 32px;
         /* identical to box height, or 208% */
         a {
             font-family: Spartan;
@@ -47,5 +48,57 @@
             opacity: 0.5;
             cursor: pointer;
         }
+    }
+}
+
+
+@media (min-width: 768px) {
+    .Description {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+
+        &__Title {
+            p {
+                margin: 24px 0px;
+
+            }
+        }
+
+        &__Title, &__Text, &__Source {
+            text-align: left;
+        }
+    }
+}
+@media (min-width: 1440px) {
+    .Description {
+        grid-column-start: 2;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        width: 100%;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: end; 
+        justify-content: end;
+        &__Title {
+            font-family: Antonio;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 80px;
+            line-height: 104px;
+
+            /* identical to box height */
+            text-transform: uppercase;
+
+            color: #FFFFFF;
+        }
+
+        &__Title, &__Text, &__Source {
+            width: 350px;
+        }
+
     }
 }

@@ -5,17 +5,29 @@
     align-items: center;
     height: 50px;
     user-select: none;
-    border-top: 1px solid #979797;
-    border-bottom: 1px solid #979797;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding: 0px 24px;
     // height: 46px;
+
+    &__No {
+        position: absolute;
+        z-index: 1;
+        top: 8px;
+        left: 20px;
+        display:none;
+    }
 
     &__Tab {
         font-family: Spartan;
+        position: relative;
         font-style: normal;
         font-weight: bold;
         font-size: 9px;
         line-height: 28px;
-        opacity: 0.8;
+        opacity: 0.5;
+        flex: 1;
+        height: 45px;
         /* identical to box height */
         
         text-align: center;
@@ -24,6 +36,10 @@
         cursor: pointer;
         border-bottom: 5px solid transparent;
         transition: all .2s ease-in-out;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+
 
 
         &--Active {
@@ -31,12 +47,158 @@
             transition: all .2s ease-in-out;
             opacity: 1;
 
+            &.Menu__Tab {
+                &--mercury {
+                    border-color: rgb(65, 158, 187);
+
+                }
+                &--venus {
+                    border-color: rgb(237, 162, 73);
+
+                }
+                &--earth {
+                    border-color: rgb(109, 46, 213);
+
+                }
+                &--mars {
+                    border-color: rgb(209, 76, 50);
+
+                }
+                &--jupiter {
+                    border-color: rgb(216, 58, 52);
+
+                }
+                &--saturn {
+                    border-color: rgb(205, 81, 32);
+
+                }
+                &--uranus {
+                    border-color: rgb(30, 193, 162);
+
+                }
+                &--neptune {
+                    border-color: rgb(45, 104, 240);
+
+                }
+            }
+
+
+
         }
 
         &:hover {
             border-bottom: 5px solid #fff;
             transition: all .2s ease-in-out;
             opacity: 1;
+        }
+        button {
+            position: absolute;
+            top: 0;
+            z-index: 2;
+            background: none;
+            color: #fff;
+            border: none;
+            font-family: Spartan;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 11px;
+            line-height: 40px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            width: 100%;
+            cursor: pointer;
+        }
+
+    }
+}
+
+@media (min-width: 768px) {
+    .Menu {
+        grid-column-start: 2;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        flex-direction: column;
+        align-items: flex-end;
+
+        height: auto;
+        border: none;
+        height: 152px;
+        margin-top: 80px;
+
+        &__No {
+            display: block;
+        }
+
+        &__Tab {
+            width: 291px;
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 16px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+            &:hover {
+               
+                border-bottom: 1px solid rgba(255,255,255,0.2);
+
+                &--Active {
+                    border-bottom: 1px solid rgba(255,255,255,0.2);
+
+                }
+            }
+
+            &.Menu__Tab {
+                &--mercury {
+                    background: rgb(65, 158, 187);
+
+                }
+                &--venus {
+                    background: rgb(237, 162, 73);
+
+                }
+                &--earth {
+                    background: rgb(109, 46, 213);
+
+                }
+                &--mars {
+                    background: rgb(209, 76, 50);
+
+                }
+                &--jupiter {
+                    background: rgb(216, 58, 52);
+
+                }
+                &--saturn {
+                    background: rgb(205, 81, 32);
+
+                }
+                &--uranus {
+                    background: rgb(30, 193, 162);
+
+                }
+                &--neptune {
+                    background: rgb(45, 104, 240);
+
+                }
+            }
+        }
+    }
+}
+
+
+@media (min-width: 1440px) {
+    .Menu {
+        grid-column-start: 2;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        height: 176px;
+        padding: 0;
+        &__Tab {
+            width: 350px;
+            height: 48px;
+
         }
 
     }

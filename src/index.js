@@ -5,10 +5,13 @@ import App  from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './store/store'
 import { Provider } from 'react-redux';
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <PerfectScrollbar>
+       <App />
+    </PerfectScrollbar>
   </Provider>,
   document.getElementById('root')
 );

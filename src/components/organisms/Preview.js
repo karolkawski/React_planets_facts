@@ -10,10 +10,10 @@ export function Preview({planetId, infoId}) {
             url = planetImages.planet;
             break;
         case 1:
-            url = planetImages.interval;
+            url = planetImages.internal;
             break;
         case 2:
-            url = planetImages.geology;
+            url = planetImages.planet;
             break;
         default:
             url = planetImages.planet;
@@ -23,9 +23,13 @@ export function Preview({planetId, infoId}) {
     }
         return (
             <div className="Preview">
-                <figure>
-                    <img src={url} alt="Eartch"/>
+                <figure className="Preview__Image Preview__Image--First">
+                    <img src={url} alt=""/>
+
                 </figure>
+                {
+                    infoId === 2 ?  <figure className="Preview__Image Preview__Image--Second"><img src={planetImages.geology}/></figure> : ``
+                }
             </div>
         )
 

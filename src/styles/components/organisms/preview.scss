@@ -4,11 +4,48 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    figure {
+    position: relative;
+    &__Image {
 
         img {
             object-fit: cover;
             height: 173px;
+        }
+
+        &--Second {
+            position: absolute;
+            top: 50%;
+            z-index: 1;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .Preview {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-end: 2;
+        grid-row-start: 1;
+
+        &__Image {
+            img {
+                height: 253px;
+            }
+        }
+    }
+}
+
+@media (min-width: 1440px) {
+    .Preview {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-end: 3;
+        grid-row-start: 1;
+        height: unset;
+        &__Image {
+            img {
+                height: unset;
+            }
         }
     }
 }
