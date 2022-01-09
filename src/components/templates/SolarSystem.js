@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import {useRef, useEffect, useState} from 'react'
 import data from '../../data/data.json';
+import {textures} from '../../data/testures';
 
 const scene = new THREE.Scene();
 scene.background =new THREE.Color('#070724')
@@ -20,25 +21,31 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
       let height = mount.current.clientHeight
       let frameId
   
-      const camera = new THREE.PerspectiveCamera(100, width / height, 19, 1000);
+      const camera = new THREE.PerspectiveCamera(50, width / height, 1, 1000);
       window.camera = camera;
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
       renderer.setClearColor( 0xffffff, 0 ); // second param is opacity, 0 => transparent
       const controls = new OrbitControls( camera, renderer.domElement );
       controls.listenToKeyEvents( window );
       
-      // controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+      controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
       // controls.dampingFactor = 0.05;
 
       controls.screenSpacePanning = false;
 
-      controls.minDistance = 100;
-      controls.maxDistance = 1000;
+      controls.minDistance = 10;
+      controls.maxDistance = 800;
+      // controls
 
-      controls.maxPolarAngle = Math.PI;
-      camera.position.z = 1000;
+      // controls.maxPolarAngle = Math.PI/4;
+      camera.position.x = 65;
+      camera.position.y = -85;
+      camera.position.z = 115;
+      camera.rotation.x = 0.64;
+      camera.rotation.y = 0.43;
+      camera.rotation.z = -0.3;
 
-      let geometry = new THREE.SphereGeometry( 20, 32, 16 );
+      let geometry = new THREE.SphereGeometry( 10, 32, 16 );
       let texture = new THREE.TextureLoader().load('./assets/2k_sun.jpg')
       let material = new THREE.MeshBasicMaterial( { map: texture } );
       const sun = new THREE.Mesh( geometry, material );
@@ -58,8 +65,8 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
       for(let i = 0; i <= 7; i++) {
 
           // if (i >= 1) {
-            geometry = new THREE.TorusGeometry( (i+1) * 100, 1, 16, 100 );
-            material = new THREE.MeshBasicMaterial( { color: 0xffffff, opacity: 0.1, transparent: true } );
+            geometry = new THREE.TorusGeometry( 0.1 *((i+1) * 150 + 50), 0.1, 16, 100 );
+            material = new THREE.MeshBasicMaterial( { color: 0xffffff, opacity: 0.05, transparent: true } );
             const torus = new THREE.Mesh( geometry, material );
             orbitsGroup.add( torus );
 
@@ -70,69 +77,18 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
             // spinsGroup.add( spin );
           // }
 
-          const planetsTextures = {
-            mercury: {
-              id: 0,
-              file: '2k_mercury.jpeg',
-              path: './assets/2k_mercury.jpg',
-              size: 0.38
-            },
-            venus: {
-              id: 1,
-              file: '2k_venus_surface.jpeg',
-              path: './assets/2k_venus_surface.jpg',
-              size: 0.95
-            },
-            earth: {
-              id: 2,
-              file: '2k_earth_daymap.jpeg',
-              path: './assets/2k_earth_daymap.jpg',
-              size: 1
-            },
-            mars: {
-              id: 3,
-              file: '2k_mars.jpeg',
-              path: './assets/2k_mars.jpg',
-              size: 0.54
-            },
-            jupiter: {
-              id: 4,
-              file: '2k_jupiters.jpeg',
-              path: './assets/2k_jupiter.jpg',
-              size: 11.26
-            },
-            saturn: {
-              id: 5,
-              file: '2k_saturn.jpeg',
-              path: './assets/2k_saturn.jpg',
-              size: 9.45
-            },
-            uranus: {
-              id: 6,
-              file: '2k_uranus.jpeg',
-              path: './assets/2k_uranus.jpg',
-              size: 4.47
-            },
-            neptune: {
-              id: 7,
-              file: '2k_neptune.jpeg',
-              path: './assets/2k_neptune.jpg',
-              size: 3.90
-            }
-          }
-
           const planetGroup = new THREE.Group();
           planetGroup.name = `'planet${i}`
           planetGroup.position.set(0, 0, 0);
-          geometry = new THREE.SphereGeometry( 5 * planetsTextures[Object.keys(planetsTextures)[i]].size, 32, 16 );
-          texture = new THREE.TextureLoader().load(planetsTextures[Object.keys(planetsTextures)[i]].path)
+          geometry = new THREE.SphereGeometry( 0.1*( 5 * textures[Object.keys(textures)[i]].size), 32, 16 );
+          texture = new THREE.TextureLoader().load(textures[Object.keys(textures)[i]].path)
 
           material = new THREE.MeshBasicMaterial( { map: texture } );
           const planet = new THREE.Mesh( geometry, material );
           planetGroup.add(planet);
 
-          planet.position.set((i+1) * 100,0,0);
-      planet.rotation.set(Math.PI/2, 0, 0)
+          planet.position.set(0.1 * ((i+1) * 150 + 50),0,0);
+          planet.rotation.set(Math.PI/2, 0, 0)
 
           planetsGroup.add( planetGroup );
       }
@@ -141,19 +97,18 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
       scene.add( orbitsGroup);
       scene.add( spinsGroup);
 
-        // To get a closed circle use LineLoop instead (see also @jackrugile his comment):
-        // scene.add( new THREE.LineLoop( geometry, material ) );
+      
+      const dirLight1 = new THREE.DirectionalLight( 0xffffff );
+      dirLight1.position.set( 1, 1, 1 );
+      scene.add( dirLight1 );
 
-          const dirLight1 = new THREE.DirectionalLight( 0xffffff );
-          dirLight1.position.set( 1, 1, 1 );
-          scene.add( dirLight1 );
+      const dirLight2 = new THREE.DirectionalLight( 0x002288 );
+      dirLight2.position.set( - 1, - 1, - 1 );
+      scene.add( dirLight2 );
 
-          const dirLight2 = new THREE.DirectionalLight( 0x002288 );
-          dirLight2.position.set( - 1, - 1, - 1 );
-          scene.add( dirLight2 );
+      const ambientLight = new THREE.AmbientLight( 0x222222 );
+      scene.add( ambientLight );
 
-          const ambientLight = new THREE.AmbientLight( 0x222222 );
-          scene.add( ambientLight );
 
           renderer.setClearColor('#000000')
           renderer.setSize(width, height)
@@ -239,7 +194,60 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
 
 
     return (
+      <>
         <div className="Scene" ref={mount}></div>
+        <div className="Scene__Controls">
+          <div class="Control">
+            <div class="Control__Header">
+              CONTROLS
+              <div class="Control__Toggle">></div>
+            </div>
+            <div class="Control__Body">
+            <label class="container">
+              <input type="checkbox"/>
+              <span class="checkmark"></span>
+              Show/Hide orbits
+           </label>
+
+           <label class="container">
+              <input type="checkbox"/>
+              <span class="checkmark"></span>
+              Show/Hide moons
+           </label>
+
+           <label class="container">
+              <input type="checkbox"/>
+              <span class="checkmark"></span>
+              Show/Hide orbits
+           </label>
+
+           <label class="container">
+             Time
+              <input type="text"/>
+              <span class="checkmark"></span>
+           </label>
+
+
+           <div class="Control__Actions">
+            Actions
+
+            <label class="container">
+                <button>Center</button>
+            </label>
+
+            <label class="container">
+                <button>Reset</button>
+            </label>
+
+          </div>
+            
+            </div>
+            <div class="Control__Footer">
+            
+            </div>
+          </div>
+        </div>
+      </>
 
     )
   }
