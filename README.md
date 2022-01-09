@@ -1,4 +1,5 @@
-<<<<<<< HEAD
+[![Netlify Status](https://api.netlify.com/api/v1/badges/90a3c198-ba14-489c-a63d-77300aebd9db/deploy-status)](https://app.netlify.com/sites/theplannetsapp/deploys)  
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -69,6 +70,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-=======
-# React_planets_facts
->>>>>>> 1c6a4ca9621ab689e4ecfb050dcf5feab34f033d
