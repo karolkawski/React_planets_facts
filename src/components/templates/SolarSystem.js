@@ -5,7 +5,7 @@ import {useRef, useEffect, useState} from 'react'
 import data from '../../data/data.json';
 
 const scene = new THREE.Scene();
-scene.background = null;
+scene.background =new THREE.Color('#070724')
 window.scene = scene;
 
 
@@ -15,6 +15,8 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
 
     
     useEffect(() => {
+
+      document.querySelector('.scrollbar-container').classList.remove('ps', 'ps--active-y');
       let width = mount.current.clientWidth
       let height = mount.current.clientHeight
       let frameId
@@ -167,9 +169,10 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
       
       return () => {
         stop()
-        window.removeEventListener('resize', handleResize)
-        mount.current.removeChild(renderer.domElement)
-  
+        window.removeEventListener('resize', handleResize);
+        if (mount.current) {
+          mount.current.removeChild(renderer.domElement)
+        }
         // scene.remove(cube)?
         geometry.dispose()
         material.dispose()
