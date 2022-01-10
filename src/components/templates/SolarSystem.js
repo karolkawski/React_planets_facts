@@ -45,10 +45,23 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
       camera.rotation.y = 0.43;
       camera.rotation.z = -0.3;
 
+      try {
+        scene.remove(scene.getObjectByName('planets'));
+        scene.remove(scene.getObjectByName('orbits'));
+        scene.remove(scene.getObjectByName('spins'));
+        scene.remove(scene.getObjectByName('SUN'));
+
+      }catch {
+
+      }
+
+
+
       let geometry = new THREE.SphereGeometry( 10, 32, 16 );
       let texture = new THREE.TextureLoader().load('./assets/2k_sun.jpg')
       let material = new THREE.MeshBasicMaterial( { map: texture } );
       const sun = new THREE.Mesh( geometry, material );
+      sun.name = 'SUN'
       sun.position.set(0,0,0)
       scene.add( sun );
 
@@ -97,17 +110,29 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
       scene.add( orbitsGroup);
       scene.add( spinsGroup);
 
-      
-      const dirLight1 = new THREE.DirectionalLight( 0xffffff );
-      dirLight1.position.set( 1, 1, 1 );
-      scene.add( dirLight1 );
+      if (!scene.getObjectByName('dirLight1')) {
+        const dirLight1 = new THREE.DirectionalLight( 0xffffff );
+        dirLight1.position.set( 1, 1, 1 );
+        dirLight1.name = 'dirLight1';
+        scene.add( dirLight1 );
+      }
 
-      const dirLight2 = new THREE.DirectionalLight( 0x002288 );
-      dirLight2.position.set( - 1, - 1, - 1 );
-      scene.add( dirLight2 );
+      if (!scene.getObjectByName('dirLight2')) {
 
-      const ambientLight = new THREE.AmbientLight( 0x222222 );
-      scene.add( ambientLight );
+        const dirLight2 = new THREE.DirectionalLight( 0x002288 );
+        dirLight2.position.set( - 1, - 1, - 1 );
+        dirLight2.name = 'dirLight2';
+        scene.add( dirLight2 );
+      }
+
+      if (!scene.getObjectByName('ambient')) {
+        const ambientLight = new THREE.AmbientLight( 0x222222 );
+        ambientLight.name = 'ambient';
+        scene.add( ambientLight );
+      }
+
+
+
 
 
           renderer.setClearColor('#000000')
@@ -197,53 +222,43 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
       <>
         <div className="Scene" ref={mount}></div>
         <div className="Scene__Controls">
-          <div class="Control">
-            <div class="Control__Header">
+          <div className="Control">
+            <div className="Control__Header">
               CONTROLS
-              <div class="Control__Toggle">></div>
+              <div className="Control__Toggle">{'>'}</div>
             </div>
-            <div class="Control__Body">
-            <label class="container">
+            <div className="Control__Body">
+            <label className="container">
               <input type="checkbox"/>
-              <span class="checkmark"></span>
+              <span className="checkmark"></span>
               Show/Hide orbits
            </label>
-
-           <label class="container">
+           <label className="container">
               <input type="checkbox"/>
-              <span class="checkmark"></span>
+              <span className="checkmark"></span>
               Show/Hide moons
            </label>
-
-           <label class="container">
+           <label className="container">
               <input type="checkbox"/>
-              <span class="checkmark"></span>
+              <span className="checkmark"></span>
               Show/Hide orbits
            </label>
-
-           <label class="container">
+           <label className="container">
              Time
               <input type="text"/>
-              <span class="checkmark"></span>
+              <span className="checkmark"></span>
            </label>
-
-
-           <div class="Control__Actions">
+           <div className="Control__Actions">
             Actions
-
-            <label class="container">
+            <label className="container">
                 <button>Center</button>
             </label>
-
-            <label class="container">
+            <label className="container">
                 <button>Reset</button>
             </label>
-
           </div>
-            
             </div>
-            <div class="Control__Footer">
-            
+            <div className="Control__Footer">
             </div>
           </div>
         </div>

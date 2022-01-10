@@ -130,6 +130,10 @@
             display: block;
         }
 
+        &__Wrapper {
+            margin-right: 24px;
+        }
+
         &__Tab {
             width: 291px;
             border: 1px solid rgba(255,255,255,0.2);
@@ -199,6 +203,11 @@
             width: 350px;
             height: 48px;
 
+        }
+
+        
+        &__Wrapper {
+            margin-right: 0;
         }
 
     }
