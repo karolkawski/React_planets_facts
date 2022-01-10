@@ -18,10 +18,6 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
     const [orbitsVisible, setOrbitsVisible] = useState(true)
     const [orbitOpacity, setOrbitOpacity] = useState(0.05)
     const [moonsVisible, setMoonsvisible] = useState(true)
-    // const [rotationTime, setRotationtime] = useState(0.005)
-
-
-    // const controls = useRef(null)
 
     const controlToggleHandler = () => setCollapsed(!isCollapsed);
 
@@ -86,8 +82,7 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
 
     const animatePlanets = () => {
       const planetsGroup = scene.getObjectByName('planets').children;
-      
-      console.log('start', rotationTime)
+    
       const earthYear = 2 * Math.PI * (1 / 60) * (1 / 60);
 
 
@@ -157,9 +152,6 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
 
       controls.minDistance = 10;
       controls.maxDistance = 800;
-      // controls
-
-      // controls.maxPolarAngle = Math.PI/4;
       camera.position.x = 65;
       camera.position.y = -85;
       camera.position.z = 115;
@@ -176,8 +168,6 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
       }catch {
 
       }
-
-
 
       let geometry = new THREE.SphereGeometry( 10, 32, 16 );
       let texture = new THREE.TextureLoader().load('./assets/2k_sun.jpg')
@@ -316,11 +306,11 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
               <span className="checkmark"></span>
               Show/Hide orbits
            </label>
-           <label className="container">
+           {/* <label className="container">
               <input type="checkbox"/>
               <span className="checkmark" onClick={(e) => { toggleMoonsVisible(e) }}></span>
               Show/Hide moons
-           </label>
+           </label> */}
            <label className="container">
              Rotations time
               <input type="range"  onChange={(e) => { rotationsTimeChange(e) }}/>
@@ -346,8 +336,6 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
                 <button onClick={(e) => resetScene(e)}>Reset</button>
             </label>
           </div>
-            </div>
-            <div className="Control__Footer">
             </div>
           </div>
         </div>

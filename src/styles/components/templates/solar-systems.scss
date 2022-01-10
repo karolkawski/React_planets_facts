@@ -6,9 +6,9 @@
         // display: none;
 
         position: absolute;
-        top: 150px;
+        top: 170px;
         width: 300px;
-        height: 250px;
+        // height: 250px;
         -webkit-box-shadow: 0px 0px 5px 1px rgba(255, 255, 255, 1);
         -moz-box-shadow: 0px 0px 5px 1px rgba(255, 255, 255, 1);
         box-shadow: 0px 0px 5px 1px rgba(255, 255, 255, 1);
@@ -66,7 +66,7 @@
                 margin-top: 10px;
                 padding-top: 10px;
                 border-top: 1px solid #fff;
-                display: flex;
+                display: none;
 
                 button {
                     margin-left: 10px;
@@ -98,10 +98,6 @@
                 }
             }
 
-            &__Footer {
-                height: 30px;
-                padding: 10px;
-            }
         }
     }
 
