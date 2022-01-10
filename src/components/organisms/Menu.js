@@ -4,6 +4,7 @@ import {MenuItem} from '../molecues/MenuItem';
 export function Menu({collection, planetId, infoId, onInfoSelect}) {
         return (
             <div className="Menu">
+                <div className="Menu__Wrapper">
                 {
                     Object.keys(collection).map((key) => {
                     const data = collection[key];
@@ -16,6 +17,7 @@ export function Menu({collection, planetId, infoId, onInfoSelect}) {
 
                     })
                 }
+                </div>
             </div>
         )
 
