@@ -6,24 +6,146 @@ import data from '../../data/data.json';
 import {textures} from '../../data/testures';
 
 const scene = new THREE.Scene();
+let camera, renderer
 scene.background =new THREE.Color('#070724')
 window.scene = scene;
-
+let frameId
+let rotationTime = 0.005
 
 export function SolarSystem({planetId, infoId, onInfoSelect}) {
     const mount = useRef(null)
-    const controls = useRef(null)
+    const [isCollapsed, setCollapsed] = useState(false)
+    const [orbitsVisible, setOrbitsVisible] = useState(true)
+    const [orbitOpacity, setOrbitOpacity] = useState(0.05)
+    const [moonsVisible, setMoonsvisible] = useState(true)
+    // const [rotationTime, setRotationtime] = useState(0.005)
+
+
+    // const controls = useRef(null)
+
+    const controlToggleHandler = () => setCollapsed(!isCollapsed);
+
+    const startAnimation = () => {
+      console.log('start');
+    }
+
+    const stoptAnimation = () => {
+      console.log('stop');
+
+    }
+
+    const centerScene = () => {
+      console.log('center');
+
+    }
+
+    const resetScene = () => {
+      console.log('reset');
+
+    }
+
+    const toggleOrbitsVisible = () => {
+      setOrbitsVisible(!orbitsVisible);
+      const orbits = scene.getObjectByName('orbits').children;
+
+      orbits.map((orbit) => {
+        orbit.visible = orbitsVisible
+      })
+    }
+
+    const toggleMoonsVisible = () => {
+      setMoonsvisible(!moonsVisible);
+
+    }
+    
+    const orbitsOpacityChange = (e) => {
+      const value = Number.parseInt(e.currentTarget.value)/100;
+      const orbit = scene.getObjectByName('orbits');
+
+      setOrbitOpacity(0.4 * value);
+
+      //TODO check orbits visible state
+      if (orbit) {
+        const orbits = orbit.children;
+
+        orbits.map((orbit) => {
+          orbit.material.opacity = orbitOpacity
+        })
+      }
+
+
+
+    }
+
+    const rotationsTimeChange = (e) => {
+      const value = Number.parseInt(e.currentTarget.value)/100;
+
+      rotationTime = value;
+
+    }
+
+    const animatePlanets = () => {
+      const planetsGroup = scene.getObjectByName('planets').children;
+      
+      console.log('start', rotationTime)
+      const earthYear = 2 * Math.PI * (1 / 60) * (1 / 60);
+
+
+      planetsGroup.forEach((planetGroup, index) => {
+        const planetData = data[Object.keys(data)[index]];
+        const rotation = {value: Number.parseFloat(planetData.rotation.split(' ')[0]), unit: planetData.rotation.split(' ')[1]};
+
+        
+        switch (rotation.unit) {
+          case 'Days':
+            planetGroup.rotation.z += earthYear * rotation.value * rotationTime;
+            planetGroup.children[0].rotation.y +=  earthYear * rotation.value * rotationTime ;
+
+            break;
+          case 'Hours':
+            planetGroup.rotation.z += earthYear * rotation.value * 24 * rotationTime;
+            planetGroup.children[0].rotation.y +=  earthYear * rotation.value * 24* rotationTime ;
+            
+            break;
+          default: break;
+        }
+
+      })
+    }
+
+    const start = () => {
+      if (!frameId) {
+        frameId = requestAnimationFrame(animate)
+      }
+    }
+
+    const stop = () => {
+      cancelAnimationFrame(frameId)
+      frameId = null
+    }
+
+    const renderScene = () => {
+      renderer.render(scene, camera)
+    }
+
+    const animate = () => {
+
+      renderScene()
+      frameId = window.requestAnimationFrame(animate);
+      animatePlanets()
+    }
+
+
     
     useEffect(() => {
 
       document.querySelector('.scrollbar-container').classList.remove('ps', 'ps--active-y');
       let width = mount.current.clientWidth
       let height = mount.current.clientHeight
-      let frameId
   
-      const camera = new THREE.PerspectiveCamera(50, width / height, 1, 1000);
+      camera = new THREE.PerspectiveCamera(50, width / height, 1, 1000);
       window.camera = camera;
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
       renderer.setClearColor( 0xffffff, 0 ); // second param is opacity, 0 => transparent
       const controls = new OrbitControls( camera, renderer.domElement );
       controls.listenToKeyEvents( window );
@@ -79,7 +201,7 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
 
           // if (i >= 1) {
             geometry = new THREE.TorusGeometry( 0.1 *((i+1) * 150 + 50), 0.1, 16, 100 );
-            material = new THREE.MeshBasicMaterial( { color: 0xffffff, opacity: 0.05, transparent: true } );
+            material = new THREE.MeshBasicMaterial( { color: 0xffffff, opacity: orbitOpacity, transparent: true } );
             const torus = new THREE.Mesh( geometry, material );
             orbitsGroup.add( torus );
 
@@ -95,7 +217,6 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
           planetGroup.position.set(0, 0, 0);
           geometry = new THREE.SphereGeometry( 0.1*( 5 * textures[Object.keys(textures)[i]].size), 32, 16 );
           texture = new THREE.TextureLoader().load(textures[Object.keys(textures)[i]].path)
-
           material = new THREE.MeshBasicMaterial( { map: texture } );
           const planet = new THREE.Mesh( geometry, material );
           planetGroup.add(planet);
@@ -107,7 +228,11 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
       }
 
       scene.add( planetsGroup );
-      scene.add( orbitsGroup);
+
+      if(orbitsVisible) {
+        scene.add( orbitsGroup);
+      }
+
       scene.add( spinsGroup);
 
       if (!scene.getObjectByName('dirLight1')) {
@@ -132,17 +257,14 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
       }
 
 
-
-
-
           renderer.setClearColor('#000000')
           renderer.setSize(width, height)
       
-          const renderScene = () => {
-            renderer.render(scene, camera)
-          }
-      
           const handleResize = () => {
+
+            let width = mount.current.clientWidth
+            let height = mount.current.clientHeight
+
             width = mount.current.clientWidth
             height = mount.current.clientHeight
             renderer.setSize(width, height)
@@ -151,60 +273,20 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
             renderScene()
           }
 
-          const animate = () => {
+
       
-            renderScene()
-            frameId = window.requestAnimationFrame(animate);
-            animatePlanets()
-          }
-      
-          const start = () => {
-            if (!frameId) {
-              frameId = requestAnimationFrame(animate)
-            }
-          }
-      
-          const stop = () => {
-            cancelAnimationFrame(frameId)
-            frameId = null
-          }
 
-          const animatePlanets = () => {
-            const planetsGroup = scene.getObjectByName('planets').children;
-            
-            const earthYear = 2 * Math.PI * (1 / 60) * (1 / 60);
-
-
-            planetsGroup.forEach((planetGroup, index) => {
-              const planetData = data[Object.keys(data)[index]];
-              const rotation = {value: Number.parseFloat(planetData.rotation.split(' ')[0]), unit: planetData.rotation.split(' ')[1]};
-              const scale = 0.005;
-
-              
-              switch (rotation.unit) {
-                case 'Days':
-                  planetGroup.rotation.z += earthYear * rotation.value * scale;
-                  planetGroup.children[0].rotation.y +=  earthYear * rotation.value * scale ;
-
-                  break;
-                case 'Hours':
-                  planetGroup.rotation.z += earthYear * rotation.value * 24 * scale;
-                  planetGroup.children[0].rotation.y +=  earthYear * rotation.value * 24* scale ;
-                  
-                  break;
-                default: break;
-              }
-
-            })
-          }
-  
       mount.current.appendChild(renderer.domElement)
       window.addEventListener('resize', handleResize)
       start()
   
-      controls.current = { start, stop }
+      // controls.current = { start, stop} //TODO why
+
+      setCollapsed(false)
       
       return () => {
+
+        //TODO remove scene here ?
         stop()
         window.removeEventListener('resize', handleResize);
         if (mount.current) {
@@ -221,40 +303,47 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
     return (
       <>
         <div className="Scene" ref={mount}></div>
-        <div className="Scene__Controls">
+        <div className={!isCollapsed ? "Scene__Controls Scene__Controls--Show" : "Scene__Controls Scene__Controls--Hide"}>
           <div className="Control">
             <div className="Control__Header">
               CONTROLS
-              <div className="Control__Toggle">{'>'}</div>
+              <div className="Control__Toggle" onClick={(e) => controlToggleHandler(e)}>
+              </div>
             </div>
             <div className="Control__Body">
             <label className="container">
-              <input type="checkbox"/>
+              <input type="checkbox" onClick={(e) => { toggleOrbitsVisible(e) }}/>
               <span className="checkmark"></span>
               Show/Hide orbits
            </label>
            <label className="container">
               <input type="checkbox"/>
-              <span className="checkmark"></span>
+              <span className="checkmark" onClick={(e) => { toggleMoonsVisible(e) }}></span>
               Show/Hide moons
            </label>
            <label className="container">
-              <input type="checkbox"/>
+             Rotations time
+              <input type="range"  onChange={(e) => { rotationsTimeChange(e) }}/>
               <span className="checkmark"></span>
-              Show/Hide orbits
            </label>
            <label className="container">
-             Time
-              <input type="text"/>
+             Orbits opacity
+              <input type="range" onChange={(e) => {orbitsOpacityChange(e)}} min="10"/>
               <span className="checkmark"></span>
            </label>
            <div className="Control__Actions">
-            Actions
+            Actions:
             <label className="container">
-                <button>Center</button>
+                <button onClick={(e) => startAnimation(e)}>Start</button>
             </label>
             <label className="container">
-                <button>Reset</button>
+                <button onClick={(e) =>stoptAnimation(e)}>Stop</button>
+            </label>
+            <label className="container">
+                <button onClick={(e) => centerScene(e)}>Center</button>
+            </label>
+            <label className="container">
+                <button onClick={(e) => resetScene(e)}>Reset</button>
             </label>
           </div>
             </div>
@@ -263,6 +352,5 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
           </div>
         </div>
       </>
-
     )
   }
