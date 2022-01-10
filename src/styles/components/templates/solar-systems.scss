@@ -1,63 +1,110 @@
 .Scene {
     position: absolute;
-    left:0;
+    left: 0;
 
     &__Controls {
-        display: none;
+        // display: none;
 
         position: absolute;
-        top: 70px;
+        top: 170px;
         width: 300px;
-        height: 300px;
-        border: 1px solid rgba(255,255,255, 0.5);
+        // height: 250px;
+        -webkit-box-shadow: 0px 0px 5px 1px rgba(255, 255, 255, 1);
+        -moz-box-shadow: 0px 0px 5px 1px rgba(255, 255, 255, 1);
+        box-shadow: 0px 0px 5px 1px rgba(255, 255, 255, 1);
+        user-select: none;
         left: 0;
-        padding: 10px;
+        transition: all .2s ease-in-out;
+        font-family: Spartan;
+        font-style: normal;
+        font-size: 11px;
+        line-height: 25px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+
+
+        
+        &--Show {
+            left: 0px;
+            transition: all .2s ease-in-out;
+            .Control__Toggle {
+                &:before {
+                    content: '<';
+                }
+            }
+        }
+
+        &--Hide {
+
+            left: -280px;
+            transition: all .2s ease-in-out;
+            .Control__Toggle {
+                &:before {
+                    content: '>';
+                }
+            }
+        }
 
         .Control {
+
+
             &__Header {
                 text-align: center;
-                width: 100%;;
+                width: 330px;
                 height: 30px;
+                background: #999;
+                color: #000;
+                display: flex;
+                justify-content: center;
+                align-content: center;
+                line-height: 31px;
+                margin-top: -4px;
+                font-weight: bold;
             }
 
             &__Actions {
                 margin-top: 10px;
                 padding-top: 10px;
                 border-top: 1px solid #fff;
-                display: flex;
-                flex-direction: column;
+                display: none;
+
+                button {
+                    margin-left: 10px;
+                }
             }
 
             &__Toggle {
-                display: none;
                 position: absolute;
-                width: 50px;
-                height: 50px;
-                border: 1px solid rgba(255,255,255, 0.5);
-                top:-2px;
-                // display: flex;
-                align-items: center;
-                justify-content: center;
-                right: -51px;
+                top: -11px;
+                font-size: 20px;
+                font-weight: bold;
+                user-select: none;
+                right: -30px;
+                padding: 10px;
                 cursor: pointer;
+
             }
+
             &__Body {
                 display: flex;
                 flex-direction: column;
                 height: calc(100% - 60px);
+                padding: 10px;
+
 
                 .container {
-                    margin-bottom: 10px;;
+                    margin-bottom: 10px;
+                    display: flex;
                 }
             }
-            &__Footer {
-                height: 30px;
-            }
+
         }
     }
-    
+
 }
-.Scene, canvas {
+
+.Scene,
+canvas {
     width: 100vw;
     height: 100vh;
 }
