@@ -25,7 +25,7 @@ export function Navigation({planetId, onPlanetSelect}) {
         <nav className={isCollapsed ? 'Navigation' : 'Navigation Navigation--Collapsed'}>
           <div className="Navigation__Title">THE PLANNETS</div>
           <ul className="Navigation__Menu">
-          <Link to="/solar-system" className="Navigation__Item Navigation__Item--Yellow Navigation__Item--Not-Selectable" >Solar system 3D</Link>
+          <Link to="/solar-system" className="Navigation__Item Navigation__Item--Yellow Navigation__Item--Not-Selectable" onClick={() => {toggleMenu()}} >Solar system 3D</Link>
             {
               //TODO separate 
               Object.keys(planets).map((key) => {
