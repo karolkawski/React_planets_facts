@@ -12,6 +12,11 @@
 
     // mobile
 
+    &__Wrapper {
+        display: flex;
+        width: 100%;
+    }
+
     &--Collapsed {
         padding: 0;
         width: 100vw;
