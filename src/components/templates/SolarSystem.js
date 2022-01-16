@@ -58,12 +58,13 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
 
     const resetScene = () => {
       console.log('reset');
+      rotationTime = 0.005;
 
     }
 
     const toggleOrbitsVisible = () => {
       setOrbitsVisible(!orbitsVisible);
-      const orbits = sceneBloom.getObjectByName('orbits').children;
+      const orbits = scene.getObjectByName('orbits').children;
 
       orbits.map((orbit) => {
         orbit.visible = orbitsVisible
@@ -72,13 +73,13 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
 
     const toggleMoonsVisible = () => {
       setMoonsvisible(!moonsVisible);
-
     }
     
     const orbitsOpacityChange = (e) => {
       const value = Number.parseInt(e.currentTarget.value)/100;
-      const orbit = sceneBloom.getObjectByName('orbits');
+      const orbit = scene.getObjectByName('orbits');
 
+      console.log(value, orbit)
       setOrbitOpacity(0.4 * value);
 
       //TODO check orbits visible state
@@ -141,6 +142,9 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
     }
     
     useEffect(() => {
+
+      resetScene();
+
       document.querySelector('.scrollbar-container').classList.remove('ps', 'ps--active-y');
       let width = mount.current.clientWidth
       let height = mount.current.clientHeight
@@ -293,13 +297,11 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
       
       return () => {
 
-        //TODO remove scene here ?
         stop()
         window.removeEventListener('resize', handleResize);
         if (mount.current) {
           mount.current.removeChild(renderer.domElement)
         }
-        // sceneBloom.remove(cube)?
         geometry.dispose()
         material.dispose()
       }
