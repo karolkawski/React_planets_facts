@@ -1,11 +1,20 @@
-import data from '../../data/data.json'
 
-export function Preview({planetId, infoId}) {
+import store from '../../store/store'
+
+export function Preview() {
     let url = '';
+    let id = 0;
+    let planetImages = [];
 
-    const planetImages = data[planetId].images;
 
-    switch (infoId) {
+    const nstore = store.getState().planets;
+    if (nstore.planets.length > 0) {
+        const currentPlanetData = nstore.planets[nstore.planetId]
+        planetImages = currentPlanetData.images;
+
+        id = nstore.infoId
+
+    switch (id) {
         case 0:
             url = planetImages.planet;
             break;
@@ -21,6 +30,8 @@ export function Preview({planetId, infoId}) {
             break;
 
     }
+}
+    
         return (
             <div className="Preview">
                 <figure className="Preview__Image Preview__Image--First">
@@ -28,7 +39,7 @@ export function Preview({planetId, infoId}) {
 
                 </figure>
                 {
-                    infoId === 2 ?  <figure className="Preview__Image Preview__Image--Second"><img src={planetImages.geology}/></figure> : ``
+                    id === 2 ?  <figure className="Preview__Image Preview__Image--Second"><img src={planetImages.geology}/></figure> : ``
                 }
             </div>
         )

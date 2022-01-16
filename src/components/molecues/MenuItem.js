@@ -1,4 +1,3 @@
-// import {Button} from '../atoms/Button';
 import { connect } from 'react-redux';
 import { colors } from '../../data/colors';
 

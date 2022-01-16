@@ -14,13 +14,11 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 const sceneBloom = new THREE.Scene();
 const scene = new THREE.Scene();
 
-
 let camera, composer, renderer
 sceneBloom.background = new THREE.Color('#040414') 
 
 let frameId
 let rotationTime = 0.005
-
 
 const defaults = {
   isCollapsed: false,

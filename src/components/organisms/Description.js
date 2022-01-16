@@ -1,25 +1,34 @@
 import {Label} from '../atoms/Label';
-import data from '../../data/data.json';
+import store from '../../store/store'
 
-export function Description({planetId, infoId}) {
-    const currentPlanetData = data[planetId];
+export function Description() {
+    let currentPlanetData = {};
     let info = '';
 
-    switch (infoId) {
-        case 0: //overview
-            info = currentPlanetData.overview;
-            break;
-        case 1: //structure
-            info = currentPlanetData.structure;
-            break;
-        case 2: //geology
-            info = currentPlanetData.geology;
-            break;
-        default:
-            info = currentPlanetData.overview
-            break;
+    const nstore = store.getState().planets;
+    if (nstore.planets.length > 0) {
+        currentPlanetData = nstore.planets[nstore.planetId]
 
+        switch (nstore.infoId) {
+            case 0: //overview
+                info = currentPlanetData.overview;
+                break;
+            case 1: //structure
+                info = currentPlanetData.structure;
+                break;
+            case 2: //geology
+                info = currentPlanetData.geology;
+                break;
+            default:
+                info = currentPlanetData.overview
+                break;
+    
+        }
+    }else {
+        info = currentPlanetData.overview
     }
+
+
         return (
             <div className="Description">
                 <div className="Description__Title">
