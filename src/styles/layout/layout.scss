@@ -17,6 +17,10 @@ html {
         padding-top: 68px;
         height: 100vh;
         max-width: 1920px;
+
+        &--System {
+            padding-top: 0;
+        }
     }
 }
 
@@ -31,6 +35,10 @@ html {
             padding-top: 160px;
             width: 100%;
             margin: auto;
+
+            &--System {
+                padding-top: 0;
+            }
         }
     }
 }
@@ -46,6 +54,10 @@ html {
             width: 80%;
             margin: auto;
             padding-top: 68px;
+
+            &--System {
+                padding-top: 0;
+            }
         }
     }
 }

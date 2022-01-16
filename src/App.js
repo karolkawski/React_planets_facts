@@ -16,10 +16,15 @@ function App() {
   const [planets, setPlanets] = useState([])
   const [planetId, setPlanetId] = useState(0);
   const [infoId, setInfoId] =  useState(0);
-
+  const [isSystem, setIsSystem] = useState(false)
+  
   useEffect(() => {
     planetsFetch();
   }, [])
+
+  useEffect(() => {
+    console.log(isSystem)
+  }, [isSystem]);
 
   const planetsFetch = () => {
     window.store.dispatch({type: 'FETCH_PLANET_DETAILS', planets: data, planetId: planetId, infoId: infoId})
@@ -30,6 +35,10 @@ function App() {
     setPlanetId(id);
   }
 
+  const onViewChange = (isSystem) => {
+    setIsSystem(isSystem)
+  }
+
   const onInfoSelect = (id) => {
     setInfoId(id)
   }
@@ -37,8 +46,8 @@ function App() {
   return (
     <div className="App">
       <Router>
-      <Navigation planetId={planetId} onPlanetSelect={onPlanetSelect}/>
-      <main className="App__Main">
+      <Navigation planetId={planetId} onPlanetSelect={onPlanetSelect} onViewChange={onViewChange}/>
+      <main className={isSystem ? "App__Main App__Main--System" : "App__Main"} >
         <Routes>
           <Route path="/" exact element={<Index onInfoSelect={onInfoSelect}/>}></Route>
           <Route path="/solar-system" exact element={<Index3D />}></Route>

@@ -141,6 +141,8 @@ export function SolarSystem() {
       resetScene();
 
       document.querySelector('.scrollbar-container').classList.remove('ps', 'ps--active-y');
+      document.querySelector('.App__Main').classList.add('App__Main--System');
+
       let width = mount.current.clientWidth
       let height = mount.current.clientHeight
   
