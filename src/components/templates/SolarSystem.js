@@ -10,7 +10,7 @@ let camera, renderer
 scene.background =new THREE.Color('#070724')
 window.scene = scene;
 let frameId
-let rotationTime = 0.005
+let rotationTime = 0.05
 
 export function SolarSystem({planetId, infoId, onInfoSelect}) {
     const mount = useRef(null)
@@ -82,24 +82,21 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
 
     const animatePlanets = () => {
       const planetsGroup = scene.getObjectByName('planets').children;
-    
-      const earthYear = 2 * Math.PI * (1 / 60) * (1 / 60);
-
-
       planetsGroup.forEach((planetGroup, index) => {
         const planetData = data[Object.keys(data)[index]];
         const rotation = {value: Number.parseFloat(planetData.rotation.split(' ')[0]), unit: planetData.rotation.split(' ')[1]};
 
+        const revolution = {value: Number.parseFloat(planetData.revolution.split(' ')[0]), unit: planetData.revolution.split(' ')[1]};
         
         switch (rotation.unit) {
           case 'Days':
-            planetGroup.rotation.z += earthYear * rotation.value * rotationTime;
-            planetGroup.children[0].rotation.y +=  earthYear * rotation.value * rotationTime ;
+            planetGroup.rotation.z += (0.1 * Math.PI / 180) * (80*rotationTime) * revolution.value/10;
+            planetGroup.children[0].rotation.y +=  (0.1 * Math.PI / 180)* (80*rotationTime)
 
             break;
           case 'Hours':
-            planetGroup.rotation.z += earthYear * rotation.value * 24 * rotationTime;
-            planetGroup.children[0].rotation.y +=  earthYear * rotation.value * 24* rotationTime ;
+            planetGroup.rotation.z += (0.1 * Math.PI / 180) * (80*rotationTime) * (revolution.value/(24/10));
+            planetGroup.children[0].rotation.y +=  (0.1 * Math.PI / 180)* (80*rotationTime)
             
             break;
           default: break;
