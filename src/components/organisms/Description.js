@@ -35,10 +35,10 @@ export function Description() {
                     <Label text={currentPlanetData.name}/>
                 </div>
                 <div className="Description__Text">
-                    <Label text={info.content}/>
+                    <Label text={info ? info.content : ''}/>
                 </div>
                 <div className="Description__Source">
-                    Source <a href={info.source}>Wikipedia</a>
+                    Source <a href={info ? info.source : ''}>Wikipedia</a>
                 </div>
             </div>
         )

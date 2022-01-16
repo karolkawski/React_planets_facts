@@ -1,9 +1,12 @@
 
 import {MenuItem} from '../molecues/MenuItem';
 import {menu} from '../../data/menu'
+import store from '../../store/store'
 
 
-export function Menu({ planetId, infoId, onInfoSelect}) {
+export function Menu({ onInfoSelect}) {
+    const nstore = store.getState().planets;
+
         return (
             <div className="Menu">
                 <div className="Menu__Wrapper">
@@ -13,9 +16,9 @@ export function Menu({ planetId, infoId, onInfoSelect}) {
                     return <MenuItem key={data.id} 
                                     name={key} 
                                     id={data.id}
-                                    selected={infoId}
+                                    selected={nstore.infoId}
                                     onInfoSelect={onInfoSelect}
-                                    planetId={planetId}/>
+                                    planetId={nstore.planetId}/>
 
                     })
                 }

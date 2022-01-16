@@ -27,7 +27,7 @@ const defaults = {
   moonsVisible: true,
 }
 
-export function SolarSystem({planetId, infoId, onInfoSelect}) {
+export function SolarSystem() {
     const mount = useRef(null)
     const [isCollapsed, setCollapsed] = useState(defaults.isCollapsed)
     const [orbitsVisible, setOrbitsVisible] = useState(defaults.orbitsVisible)
@@ -80,8 +80,7 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
       console.log(value, orbit)
       setOrbitOpacity(0.4 * value);
 
-      //TODO check orbits visible state
-      if (orbit) {
+      if (orbitsVisible) {
         const orbits = orbit.children;
 
         orbits.map((orbit) => {
@@ -180,8 +179,6 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
 
       }
       let geometry, texture, material;
-
-
 
       const planetsGroup = new THREE.Group();
       planetsGroup.name = 'planets';

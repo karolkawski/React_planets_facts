@@ -3,7 +3,7 @@ import { Preview } from '../organisms/Preview';
 import {Description} from '../organisms/Description';
 import {Details} from '../organisms/Details';
 import { useEffect } from 'react';
-export function Planet({planetId, infoId, onInfoSelect}) {
+export function Planet({onInfoSelect}) {
 
     useEffect(() => {
       document.querySelector('.scrollbar-container').classList.add('ps', 'ps--active-y');
@@ -11,7 +11,7 @@ export function Planet({planetId, infoId, onInfoSelect}) {
 
     return (
         <>
-            <Menu planetId={planetId} infoId={infoId} onInfoSelect={onInfoSelect}/>
+            <Menu onInfoSelect={onInfoSelect}/>
             <Preview />
             <Description />
             <Details />
