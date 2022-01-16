@@ -9,8 +9,14 @@
     width: calc(100% - 48px);
     height: 68px;
     padding: 0px 24px;
+    z-index: 1;
 
     // mobile
+
+    &__Wrapper {
+        display: flex;
+        width: 100%;
+    }
 
     &--Collapsed {
         padding: 0;
@@ -37,6 +43,8 @@
             width: calc(100vw - 50px);
             position: absolute;
             top: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
         }
 
         .Navigation__Item {
@@ -137,7 +145,6 @@
         line-height: 36px;
         letter-spacing: -1.05px;
         text-transform: uppercase;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         color: #FFFFFF;
 
         //mobile {

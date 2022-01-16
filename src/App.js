@@ -2,7 +2,6 @@ import './styles/main.scss';
 import {useState} from 'react'
 import  {Index} from './pages/index';
 import  {Index3D} from './pages/3d';
-
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import data from './data/data.json'
@@ -11,8 +10,8 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
 } from "react-router-dom";
+
 function App() {
   const [planets, setPlanets] = useState([])
   const [planetId, setPlanetId] = useState(0);
@@ -41,7 +40,7 @@ function App() {
       <Navigation planetId={planetId} onPlanetSelect={onPlanetSelect}/>
       <main className="App__Main">
         <Routes>
-          <Route path="/" exact element={<Index planetId={planetId} infoId={infoId} onInfoSelect={onInfoSelect}/>}></Route>
+          <Route path="/" exact element={<Index onInfoSelect={onInfoSelect}/>}></Route>
           <Route path="/solar-system" exact element={<Index3D />}></Route>
         </Routes>
         </main>
@@ -49,8 +48,6 @@ function App() {
     </div>
   );
 }
-
-
 
 const mapStateToProps = (state) => {
   return {

@@ -3,13 +3,8 @@ import iconHamburger from '../assets/icon-hamburger.svg'
 import iconClose from '../assets/icon-close.svg'
 import { v4 as uuidv4 } from 'uuid';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
   Link
 } from "react-router-dom";
-import { colors } from '../data/colors';
-
 
 export function Navigation({planetId, onPlanetSelect}) {
   const planets = window.store.getState().planets.planets;
@@ -19,15 +14,22 @@ export function Navigation({planetId, onPlanetSelect}) {
     setCollapsed(!isCollapsed);
     }
 
+    const checkIsMobie = () => {
+      return Number.parseInt(window.innerWidth) < 768
+    };
+
 
     return (
         <header className="App__Header">
         <nav className={isCollapsed ? 'Navigation' : 'Navigation Navigation--Collapsed'}>
           <div className="Navigation__Title">THE PLANNETS</div>
           <ul className="Navigation__Menu">
-          <Link to="/solar-system" className="Navigation__Item Navigation__Item--Yellow Navigation__Item--Not-Selectable" >Solar system 3D</Link>
+          <Link to="/solar-system" className="Navigation__Item Navigation__Item--Yellow Navigation__Item--Not-Selectable" onClick={() => {
+            if(checkIsMobie()) {
+               toggleMenu();
+            }
+          }} >Solar system 3D</Link>
             {
-              //TODO separate 
               Object.keys(planets).map((key) => {
                 const data = planets[key];
                 return <Link to="/" key={uuidv4()} className={Number.parseInt(key) === planetId ? "Navigation__Item Navigation__Item--Selected" : "Navigation__Item"} onClick={e => {

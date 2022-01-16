@@ -1,19 +1,24 @@
 
 import {MenuItem} from '../molecues/MenuItem';
+import {menu} from '../../data/menu'
+import store from '../../store/store'
 
-export function Menu({collection, planetId, infoId, onInfoSelect}) {
+
+export function Menu({ onInfoSelect}) {
+    const nstore = store.getState().planets;
+
         return (
             <div className="Menu">
                 <div className="Menu__Wrapper">
                 {
-                    Object.keys(collection).map((key) => {
-                    const data = collection[key];
+                    Object.keys(menu).map((key) => {
+                    const data = menu[key];
                     return <MenuItem key={data.id} 
                                     name={key} 
                                     id={data.id}
-                                    selected={infoId}
+                                    selected={nstore.infoId}
                                     onInfoSelect={onInfoSelect}
-                                    planetId={planetId}/>
+                                    planetId={nstore.planetId}/>
 
                     })
                 }
