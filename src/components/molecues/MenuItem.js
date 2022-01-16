@@ -1,10 +1,8 @@
-// import {Button} from '../atoms/Button';
 import { connect } from 'react-redux';
 import { colors } from '../../data/colors';
 
 export function MenuItem({id, name, selected, onInfoSelect, planetId}) {
   const activeClass = `Menu__Tab  Menu__Tab--Active Menu__Tab--${colors[Object.keys(colors)[planetId]].class}`;
-
 
     return (
         <div className={selected === id ? activeClass : 'Menu__Tab'}>

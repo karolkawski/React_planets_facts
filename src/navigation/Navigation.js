@@ -30,7 +30,6 @@ export function Navigation({planetId, onPlanetSelect}) {
             }
           }} >Solar system 3D</Link>
             {
-              //TODO separate 
               Object.keys(planets).map((key) => {
                 const data = planets[key];
                 return <Link to="/" key={uuidv4()} className={Number.parseInt(key) === planetId ? "Navigation__Item Navigation__Item--Selected" : "Navigation__Item"} onClick={e => {
