@@ -3,13 +3,8 @@ import iconHamburger from '../assets/icon-hamburger.svg'
 import iconClose from '../assets/icon-close.svg'
 import { v4 as uuidv4 } from 'uuid';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
   Link
 } from "react-router-dom";
-import { colors } from '../data/colors';
-
 
 export function Navigation({planetId, onPlanetSelect}) {
   const planets = window.store.getState().planets.planets;

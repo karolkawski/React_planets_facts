@@ -4,22 +4,43 @@ import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import {useRef, useEffect, useState} from 'react'
 import data from '../../data/data.json';
 import {textures} from '../../data/testures';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { ClearPass } from 'three/examples/jsm/postprocessing/ClearPass';
+import { CopyShader } from 'three/examples/jsm/shaders/CopyShader';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 
+const sceneBloom = new THREE.Scene();
 const scene = new THREE.Scene();
-let camera, renderer
-scene.background =new THREE.Color('#070724')
-window.scene = scene;
+
+
+let camera, composer, renderer
+sceneBloom.background = new THREE.Color('#040414') 
+
 let frameId
 let rotationTime = 0.005
 
+
+const defaults = {
+  isCollapsed: false,
+  orbitsVisible: true,
+  orbitOpacity: 0.05,
+  moonsVisible: true,
+}
+
 export function SolarSystem({planetId, infoId, onInfoSelect}) {
     const mount = useRef(null)
-    const [isCollapsed, setCollapsed] = useState(false)
-    const [orbitsVisible, setOrbitsVisible] = useState(true)
-    const [orbitOpacity, setOrbitOpacity] = useState(0.05)
-    const [moonsVisible, setMoonsvisible] = useState(true)
+    const [isCollapsed, setCollapsed] = useState(defaults.isCollapsed)
+    const [orbitsVisible, setOrbitsVisible] = useState(defaults.orbitsVisible)
+    const [orbitOpacity, setOrbitOpacity] = useState(defaults.orbitOpacity)
+    const [moonsVisible, setMoonsvisible] = useState(defaults.moonsVisible)
 
     const controlToggleHandler = () => setCollapsed(!isCollapsed);
+
+    const render3D = () => {
+      composer.render();
+    }
 
     const startAnimation = () => {
       console.log('start');
@@ -37,6 +58,7 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
 
     const resetScene = () => {
       console.log('reset');
+      rotationTime = 0.005;
 
     }
 
@@ -51,13 +73,13 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
 
     const toggleMoonsVisible = () => {
       setMoonsvisible(!moonsVisible);
-
     }
     
     const orbitsOpacityChange = (e) => {
       const value = Number.parseInt(e.currentTarget.value)/100;
       const orbit = scene.getObjectByName('orbits');
 
+      console.log(value, orbit)
       setOrbitOpacity(0.4 * value);
 
       //TODO check orbits visible state
@@ -68,23 +90,17 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
           orbit.material.opacity = orbitOpacity
         })
       }
-
-
-
     }
 
     const rotationsTimeChange = (e) => {
       const value = Number.parseInt(e.currentTarget.value)/100;
-
       rotationTime = value;
-
     }
 
     const animatePlanets = () => {
       const planetsGroup = scene.getObjectByName('planets').children;
     
       const earthYear = 2 * Math.PI * (1 / 60) * (1 / 60);
-
 
       planetsGroup.forEach((planetGroup, index) => {
         const planetData = data[Object.keys(data)[index]];
@@ -119,35 +135,32 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
       frameId = null
     }
 
-    const renderScene = () => {
-      renderer.render(scene, camera)
-    }
-
     const animate = () => {
-
-      renderScene()
+      render3D()
       frameId = window.requestAnimationFrame(animate);
       animatePlanets()
     }
-
-
     
     useEffect(() => {
+
+      resetScene();
 
       document.querySelector('.scrollbar-container').classList.remove('ps', 'ps--active-y');
       let width = mount.current.clientWidth
       let height = mount.current.clientHeight
   
       camera = new THREE.PerspectiveCamera(50, width / height, 1, 1000);
+
       window.camera = camera;
-      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-      renderer.setClearColor( 0xffffff, 0 ); // second param is opacity, 0 => transparent
+      renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true })
+      renderer.setClearColor( 0x000000, 0 ); // second param is opacity, 0 => transparent
+      renderer.autoClear = false;
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(window.innerWidth, window.innerHeight);
       const controls = new OrbitControls( camera, renderer.domElement );
       controls.listenToKeyEvents( window );
       
-      controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
-      // controls.dampingFactor = 0.05;
-
+      controls.enableDamping = true; 
       controls.screenSpacePanning = false;
 
       controls.minDistance = 10;
@@ -163,19 +176,13 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
         scene.remove(scene.getObjectByName('planets'));
         scene.remove(scene.getObjectByName('orbits'));
         scene.remove(scene.getObjectByName('spins'));
-        scene.remove(scene.getObjectByName('SUN'));
+        sceneBloom.remove(sceneBloom.getObjectByName('SUN'));
 
       }catch {
 
       }
+      let geometry, texture, material;
 
-      let geometry = new THREE.SphereGeometry( 10, 32, 16 );
-      let texture = new THREE.TextureLoader().load('./assets/2k_sun.jpg')
-      let material = new THREE.MeshBasicMaterial( { map: texture } );
-      const sun = new THREE.Mesh( geometry, material );
-      sun.name = 'SUN'
-      sun.position.set(0,0,0)
-      scene.add( sun );
 
 
       const planetsGroup = new THREE.Group();
@@ -189,18 +196,10 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
 
       for(let i = 0; i <= 7; i++) {
 
-          // if (i >= 1) {
-            geometry = new THREE.TorusGeometry( 0.1 *((i+1) * 150 + 50), 0.1, 16, 100 );
-            material = new THREE.MeshBasicMaterial( { color: 0xffffff, opacity: orbitOpacity, transparent: true } );
-            const torus = new THREE.Mesh( geometry, material );
-            orbitsGroup.add( torus );
-
-            //TODO spin of planet
-            // geometry = new THREE.TorusGeometry( (i+1) * 100, 1, 16, 100, Math.PI*2 );
-            // material = new THREE.MeshBasicMaterial( { color: 0xe40000 } );
-            // const spin = new THREE.Mesh( geometry, material );
-            // spinsGroup.add( spin );
-          // }
+          geometry = new THREE.TorusGeometry( 0.1 *((i+1) * 150 + 50), 0.1, 16, 100 );
+          material = new THREE.MeshBasicMaterial( { color: 0xffffff, opacity: orbitOpacity, transparent: true } );
+          const torus = new THREE.Mesh( geometry, material );
+          orbitsGroup.add( torus );
 
           const planetGroup = new THREE.Group();
           planetGroup.name = `'planet${i}`
@@ -209,6 +208,7 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
           texture = new THREE.TextureLoader().load(textures[Object.keys(textures)[i]].path)
           material = new THREE.MeshBasicMaterial( { map: texture } );
           const planet = new THREE.Mesh( geometry, material );
+          // planet.layers.set(0)
           planetGroup.add(planet);
 
           planet.position.set(0.1 * ((i+1) * 150 + 50),0,0);
@@ -219,52 +219,37 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
 
       scene.add( planetsGroup );
 
+      geometry = new THREE.SphereGeometry( 10, 32, 16 );
+      texture = new THREE.TextureLoader().load('./assets/2k_sun.jpg')
+      material = new THREE.MeshBasicMaterial( { map: texture } );
+      const sun = new THREE.Mesh( geometry, material );
+      sun.name = 'SUN'
+      sun.position.set(0,0,0)
+      sceneBloom.add( sun );
+      
       if(orbitsVisible) {
         scene.add( orbitsGroup);
       }
 
       scene.add( spinsGroup);
 
-      if (!scene.getObjectByName('dirLight1')) {
-        const dirLight1 = new THREE.DirectionalLight( 0xffffff );
-        dirLight1.position.set( 1, 1, 1 );
-        dirLight1.name = 'dirLight1';
-        scene.add( dirLight1 );
+  
+      const handleResize = () => {
+
+        let width = mount.current.clientWidth;
+        let height = mount.current.clientHeight;
+
+        width = mount.current.clientWidth;
+        height = mount.current.clientHeight;
+        camera.aspect = width / height;
+        composer.aspect = width / height;
+
+        composer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        camera.updateProjectionMatrix();
+        render3D();
       }
-
-      if (!scene.getObjectByName('dirLight2')) {
-
-        const dirLight2 = new THREE.DirectionalLight( 0x002288 );
-        dirLight2.position.set( - 1, - 1, - 1 );
-        dirLight2.name = 'dirLight2';
-        scene.add( dirLight2 );
-      }
-
-      if (!scene.getObjectByName('ambient')) {
-        const ambientLight = new THREE.AmbientLight( 0x222222 );
-        ambientLight.name = 'ambient';
-        scene.add( ambientLight );
-      }
-
-
-          renderer.setClearColor('#000000')
-          renderer.setSize(width, height)
-      
-          const handleResize = () => {
-
-            let width = mount.current.clientWidth
-            let height = mount.current.clientHeight
-
-            width = mount.current.clientWidth
-            height = mount.current.clientHeight
-            renderer.setSize(width, height)
-            camera.aspect = width / height
-            camera.updateProjectionMatrix()
-            renderScene()
-          }
-
-
-      
 
       mount.current.appendChild(renderer.domElement)
       window.addEventListener('resize', handleResize)
@@ -272,17 +257,51 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
   
       // controls.current = { start, stop} //TODO why
 
-      setCollapsed(false)
+   // POST PROCESSING
+    
+    let clearPass = new ClearPass();
+
+      const renderScene = new RenderPass( sceneBloom, camera );
+      renderScene.clear = false;
+      const renderSUNScene = new RenderPass( scene, camera );
+      renderSUNScene.clear = false;
+
+      
+      const params = {
+				exposure: 2,
+				bloomStrength: 3,
+				bloomThreshold: 0.50,
+				bloomRadius: 1
+			};
+
+      const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
+      bloomPass.threshold = params.bloomThreshold;
+      bloomPass.strength = params.bloomStrength;
+      bloomPass.radius = params.bloomRadius;
+
+
+      let outputPass = new ShaderPass(CopyShader)
+      outputPass.renderToScreen = true
+
+      composer = new EffectComposer( renderer );
+      composer.renderToScreen = true;
+      composer.setSize(window.innerWidth, window.innerHeight);
+      composer.addPass( clearPass );
+      composer.addPass( renderScene );
+      composer.addPass( bloomPass );
+      composer.addPass( renderSUNScene );
+      composer.addPass( outputPass );
+
+      setCollapsed(false);
+
       
       return () => {
 
-        //TODO remove scene here ?
         stop()
         window.removeEventListener('resize', handleResize);
         if (mount.current) {
           mount.current.removeChild(renderer.domElement)
         }
-        // scene.remove(cube)?
         geometry.dispose()
         material.dispose()
       }
@@ -302,7 +321,7 @@ export function SolarSystem({planetId, infoId, onInfoSelect}) {
             </div>
             <div className="Control__Body">
             <label className="container">
-              <input type="checkbox" onClick={(e) => { toggleOrbitsVisible(e) }}/>
+              <input type="checkbox" onClick={(e) => { toggleOrbitsVisible(e) }} defaultChecked="true"/>
               <span className="checkmark"></span>
               Show/Hide orbits
            </label>
