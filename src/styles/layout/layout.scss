@@ -14,7 +14,7 @@ html {
 .App {
     height: 100vh;
     &__Main {
-        padding-top: 68px;
+        // padding-top: 68px;
         height: 100vh;
         max-width: 1920px;
     }
@@ -28,7 +28,7 @@ html {
             grid-template-rows: repeat(3, 1fr);
             grid-column-gap: 0px;
             grid-row-gap: 0px;
-            padding-top: 160px;
+            // padding-top: 160px;
             width: 100%;
             margin: auto;
         }
@@ -45,7 +45,7 @@ html {
             grid-row-gap: 0px;
             width: 80%;
             margin: auto;
-            padding-top: 68px;
+            // padding-top: 68px;
         }
     }
 }
