@@ -44,7 +44,7 @@ export function Navigation({planetId, onPlanetSelect, onViewChange}) {
                   }
                 }}>
                     <div className={"Navigation__Dot Navigation__Dot--" + data.name.toLowerCase() }></div>
-                    <div className="Navigation__Name">{data.name}</div>
+                    <p className="Navigation__Name">{data.name}</p>
                     <div className="Navigation__Chevron"></div>
                   </Link>
               })
