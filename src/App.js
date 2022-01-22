@@ -23,7 +23,6 @@ function App() {
   }, [])
 
   useEffect(() => {
-    console.log(isSystem)
   }, [isSystem]);
 
   const planetsFetch = () => {

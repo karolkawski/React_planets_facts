@@ -24,7 +24,6 @@ const defaults = {
   isCollapsed: false,
   orbitsVisible: true,
   orbitOpacity: 0.05,
-  moonsVisible: true,
 }
 
 export function SolarSystem() {
@@ -32,7 +31,6 @@ export function SolarSystem() {
     const [isCollapsed, setCollapsed] = useState(defaults.isCollapsed)
     const [orbitsVisible, setOrbitsVisible] = useState(defaults.orbitsVisible)
     const [orbitOpacity, setOrbitOpacity] = useState(defaults.orbitOpacity)
-    const [moonsVisible, setMoonsvisible] = useState(defaults.moonsVisible)
 
     const controlToggleHandler = () => setCollapsed(!isCollapsed);
 
@@ -40,20 +38,8 @@ export function SolarSystem() {
       composer.render();
     }
 
-    const startAnimation = () => {
-    }
-
-    const stoptAnimation = () => {
-
-    }
-
-    const centerScene = () => {
-
-    }
-
     const resetScene = () => {
       rotationTime = 0.005;
-
     }
 
     const toggleOrbitsVisible = () => {
@@ -61,13 +47,10 @@ export function SolarSystem() {
       const orbits = scene.getObjectByName('orbits').children;
 
       orbits.map((orbit) => {
-        orbit.visible = orbitsVisible
+        orbit.visible = !orbitsVisible
       })
     }
 
-    const toggleMoonsVisible = () => {
-      setMoonsvisible(!moonsVisible);
-    }
     
     const orbitsOpacityChange = (e) => {
       const value = Number.parseInt(e.currentTarget.value)/100;
@@ -85,7 +68,7 @@ export function SolarSystem() {
     }
 
     const rotationsTimeChange = (e) => {
-      const value = Number.parseInt(e.currentTarget.value)/100;
+      const value = Number.parseInt(e.currentTarget.value)/10000;
       rotationTime = value;
     }
 
@@ -94,13 +77,12 @@ export function SolarSystem() {
       planetsGroup.forEach((planetGroup, index) => {
         const planetData = data[Object.keys(data)[index]];
         const rotation = {value: Number.parseFloat(planetData.rotation.split(' ')[0]), unit: planetData.rotation.split(' ')[1]};
-
         const revolution = {value: Number.parseFloat(planetData.revolution.split(' ')[0]), unit: planetData.revolution.split(' ')[1]};
-        
-        switch (rotation.unit) {
+
+        switch ('a', rotation.unit) {
           case 'Days':
-            planetGroup.rotation.z += (0.1 * Math.PI / 180) * (80*rotationTime) * revolution.value/10;
-            planetGroup.children[0].rotation.y +=  (0.1 * Math.PI / 180)* (80*rotationTime)
+            planetGroup.rotation.z += (0.1 * Math.PI / 180) * (100*rotationTime) * revolution.value/10;
+            planetGroup.children[0].rotation.y +=  (0.1 * Math.PI / 180)* (100*rotationTime)
 
             break;
           case 'Hours':
@@ -245,8 +227,6 @@ export function SolarSystem() {
       window.addEventListener('resize', handleResize)
       start()
   
-      // controls.current = { start, stop} //TODO why
-
    // POST PROCESSING
     
     let clearPass = new ClearPass();
@@ -315,11 +295,6 @@ export function SolarSystem() {
               <span className="checkmark"></span>
               Show/Hide orbits
            </label>
-           {/* <label className="container">
-              <input type="checkbox"/>
-              <span className="checkmark" onClick={(e) => { toggleMoonsVisible(e) }}></span>
-              Show/Hide moons
-           </label> */}
            <label className="container">
              Rotations time
               <input type="range"  onChange={(e) => { rotationsTimeChange(e) }}/>
@@ -330,21 +305,6 @@ export function SolarSystem() {
               <input type="range" onChange={(e) => {orbitsOpacityChange(e)}} min="10"/>
               <span className="checkmark"></span>
            </label>
-           <div className="Control__Actions">
-            Actions:
-            <label className="container">
-                <button onClick={(e) => startAnimation(e)}>Start</button>
-            </label>
-            <label className="container">
-                <button onClick={(e) =>stoptAnimation(e)}>Stop</button>
-            </label>
-            <label className="container">
-                <button onClick={(e) => centerScene(e)}>Center</button>
-            </label>
-            <label className="container">
-                <button onClick={(e) => resetScene(e)}>Reset</button>
-            </label>
-          </div>
             </div>
           </div>
         </div>
