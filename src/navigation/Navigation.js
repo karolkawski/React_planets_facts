@@ -22,7 +22,7 @@ export function Navigation({planetId, onPlanetSelect, onViewChange}) {
     return (
         <header className="App__Header">
         <nav className={isCollapsed ? 'Navigation' : 'Navigation Navigation--Collapsed'}>
-          <div className="Navigation__Title">THE PLANNETS</div>
+          <div className="Navigation__Title">THE PLANETS</div>
           <ul className="Navigation__Menu">
           <Link to="/solar-system" className="Navigation__Item Navigation__Item--Yellow Navigation__Item--Not-Selectable" onClick={() => {
             onViewChange(true);
@@ -44,7 +44,7 @@ export function Navigation({planetId, onPlanetSelect, onViewChange}) {
                   }
                 }}>
                     <div className={"Navigation__Dot Navigation__Dot--" + data.name.toLowerCase() }></div>
-                    <div className="Navigation__Name">{data.name}</div>
+                    <p className="Navigation__Name">{data.name}</p>
                     <div className="Navigation__Chevron"></div>
                   </Link>
               })
