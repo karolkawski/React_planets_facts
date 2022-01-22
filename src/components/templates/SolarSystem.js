@@ -41,21 +41,17 @@ export function SolarSystem() {
     }
 
     const startAnimation = () => {
-      console.log('start');
     }
 
     const stoptAnimation = () => {
-      console.log('stop');
 
     }
 
     const centerScene = () => {
-      console.log('center');
 
     }
 
     const resetScene = () => {
-      console.log('reset');
       rotationTime = 0.005;
 
     }
@@ -77,7 +73,6 @@ export function SolarSystem() {
       const value = Number.parseInt(e.currentTarget.value)/100;
       const orbit = scene.getObjectByName('orbits');
 
-      console.log(value, orbit)
       setOrbitOpacity(0.4 * value);
 
       if (orbitsVisible) {

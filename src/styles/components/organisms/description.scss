@@ -6,8 +6,7 @@
         font-weight: normal;
         font-size: 40px;
         line-height: 52px;
-        /* identical to box height */
-        
+        margin-bottom: 16px;
         text-align: center;
         text-transform: uppercase;
     }
@@ -18,8 +17,6 @@
         font-weight: normal;
         font-size: 11px;
         line-height: 22px;
-        /* or 200% */
-        
         text-align: center;
     }
     &__Source {
@@ -30,7 +27,7 @@
         line-height: 25px;
         text-align: center;
         margin-top: 32px;
-        /* identical to box height, or 208% */
+
         a {
             font-family: Spartan;
             font-style: normal;
@@ -38,12 +35,8 @@
             font-size: 12px;
             line-height: 25px;
             text-decoration: none;
-            /* identical to box height, or 208% */
-
             text-decoration-line: underline;
-
             color: #FFFFFF;
-
             mix-blend-mode: normal;
             opacity: 0.5;
             cursor: pointer;
@@ -60,6 +53,8 @@
         grid-row-end: 3;
 
         &__Title {
+            margin-top: 126px;
+            margin-bottom: 24px;
             p {
                 margin: 24px 0px;
 
@@ -68,6 +63,10 @@
 
         &__Title, &__Text, &__Source {
             text-align: left;
+        }
+
+        &__Source {
+            margin-top: 24px;
         }
     }
 }
@@ -89,8 +88,8 @@
             font-weight: normal;
             font-size: 80px;
             line-height: 104px;
-
-            /* identical to box height */
+            margin-top: 126px;
+            margin-bottom: 24px;
             text-transform: uppercase;
 
             color: #FFFFFF;
@@ -98,6 +97,10 @@
 
         &__Title, &__Text, &__Source {
             width: 350px;
+        }
+
+        &__Source {
+            margin-top: 24px;
         }
 
     }

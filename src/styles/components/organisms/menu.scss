@@ -7,8 +7,6 @@
     user-select: none;
     border-top: 1px solid rgba(255,255,255,0.2);
     border-bottom: 1px solid rgba(255,255,255,0.2);
-    // padding: 0px 24px;
-    // height: 46px;
 
     &__No {
         position: absolute;
@@ -28,8 +26,6 @@
         opacity: 0.5;
         flex: 1;
         height: 45px;
-        /* identical to box height */
-        
         text-align: center;
         letter-spacing: 1.92857px;
         text-transform: uppercase;
@@ -107,6 +103,8 @@
             text-transform: uppercase;
             width: 100%;
             cursor: pointer;
+            line-height: 52px;
+            height: 100%;
         }
 
     }
@@ -127,10 +125,11 @@
         height: auto;
         border: none;
         height: 152px;
-        margin-top: 80px;
+        padding-top: 186px;
 
         &__No {
             display: block;
+            line-height: 27px;
         }
 
         &__Wrapper {
@@ -194,6 +193,12 @@
 
                 }
             }
+            button {
+                text-align: left;
+                padding-left: 60px;
+                line-height: 43px;
+                height: 40px;
+            }
         }
     }
 }
@@ -207,9 +212,22 @@
         grid-row-end: 3;
         height: 176px;
         padding: 0;
+        margin-bottom: 87px;
+        margin-top: 39px;
+
+
+        &__No {
+            line-height: 31px;
+        }
+    
         &__Tab {
             width: 350px;
             height: 48px;
+            button {
+                text-align: left;
+                padding-left: 60px;
+                height: 48px;
+            }
 
         }
 

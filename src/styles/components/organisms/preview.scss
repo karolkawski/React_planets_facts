@@ -9,13 +9,16 @@
 
         img {
             object-fit: cover;
-            height: 173px;
+            height: 111px;
         }
 
         &--Second {
             position: absolute;
             top: 50%;
             z-index: 1;
+            img {
+                height: 150px !important;
+            }
         }
     }
 }
@@ -29,7 +32,8 @@
 
         &__Image {
             img {
-                height: 253px;
+                height: 184px;
+                margin-top: 184px;
             }
         }
     }
